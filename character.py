@@ -1,8 +1,9 @@
 import pygame as pg
 
 class CharacterTextures:
-    def __init__(self):
-        self.deault = ""
+    def __init__(self, default, attack_default = None):
+        self.deault = default
+        self.attack_default = attack_default
         
 
 class Character(pg.sprite.Sprite):

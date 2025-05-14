@@ -42,7 +42,11 @@ pressedBeat = -100
 
 all_sprites = pygame.sprite.Group()
 
-player = ch.Character("assets/player_image.png", (0, 0))
+playerTextures = ch.CharacterTextures(
+    default="assets/img.png"
+)
+
+player = ch.Character(playerTextures, (0, 0))
 all_sprites.add(player)
 
 
