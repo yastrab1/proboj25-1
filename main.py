@@ -61,19 +61,19 @@ pressedBeat = -100
 bountyBoard = pygame.image.load("./assets/gameEnd.png")
 
 playerTexturesBlue = ch.CharacterTextures(
-    default="assets/player1.png",
-    combo_fernet="assets/fernet.png",
-    shoot="assets/shoot/player1.png",
-    machineGun="assets/machineGun/player1.png",
-    snipe="assets/snipe/player1.png",
-    beer="assets/beer/player1.png",
+    default= "assets/player1.png",
+    combo_fernet= "assets/fernet.png",
+    shoot= "assets/shoot/player1.png",
+    machineGun= "assets/machineGun/player1.png",
+    snipe= "assets/snipe/player1.png",
+    beer= "assets/beer/player1.png",
 )
 playerTexturesRed = ch.CharacterTextures(
-    default="assets/player2.png",
-    combo_fernet="assets/fernet.png",
-    shoot="assets/shoot/player2.png",
-    machineGun="assets/machineGun/player2.png",
-    snipe="assets/snipe/player2.png",
+    default= "assets/player2.png",
+    combo_fernet= "assets/fernet.png",
+    shoot= "assets/shoot/player2.png",
+    machineGun= "assets/machineGun/player2.png",
+    snipe= "assets/snipe/player2.png",
     beer= "assets/beer/player2.png",
 )
 
