@@ -16,17 +16,18 @@ class ComboManager:
         self.allowedP2Keys = ["left", "right", "up", "down", "page down", "page up"]
         self.comboObj = combos
         self.combos = {
-            'w': combos.beer,
+            'ws': combos.beer,
+            'updown': combos.beer,
             'qweasdqwe':combos.train,
-            'up': combos.beer,
-            's': combos.indians,
-            'down': combos.indians,
-            # 'a': combos.jarmilka,
-            # 'left': combos.jarmilka,
-            # 'd': combos.shoot,
-            # 'right': combos.shoot,
-            'da':combos.snipe,
-            'rightleft':combos.snipe,
+            
+            'sdasda': combos.indians,
+            'downrightleftdownrightleft': combos.indians,
+            'aaww': combos.jarmilka,
+            'leftleftupup': combos.jarmilka,
+            'dd': combos.shoot,
+            'rightright': combos.shoot,
+            'daad':combos.snipe,
+            'rightleftleftright':combos.snipe,
         }
 
     def registerEvent(self, keyCode: int, currentTime):
@@ -68,8 +69,10 @@ class ComboManager:
             if keyCombo.startswith(keyStringP2):
                 shouldClear2 = False
         if shouldClear1:
+            constants.rednerBigText("MANCATO!")
             self.breakCombo(True)
         if shouldClear2:
+            constants.rednerBigText("MANCATO!")
             self.breakCombo(False)
 
 
@@ -143,6 +146,7 @@ class Combos:
     def shoot(self, isPlayer1):
         print("shooting")
         if random.randint(1, 2) == 1:
+            constants.rednerBigText('MANCATO!')
             return
         player = self.player1 if isPlayer1 else self.player2
         otherPlayer = self.player2 if isPlayer1 else self.player1
@@ -197,7 +201,7 @@ class Combos:
     def moveOnScreen(self, sprite: TimedSprite, isPlayer1):
         sprite.rect = sprite.rect.move(20 if isPlayer1 else -20, 0)
 
-    def moveOnScreenTrain(self, sprite: TimedSprite, isPlayer1,targetPlayer):
+    def moveOnScreenTrain(self, sprite: TimedSprite, isPlayer1, targetPlayer):
         sprite.rect = sprite.rect.move(20 if isPlayer1 else -20, 0)
         targetPlayer.dealDamage(2)
     def aPass(self):

@@ -2,6 +2,8 @@ import pygame
 import time
 import threading
 import platform
+import random
+import math
 
 from pygame import Vector2
 import tkinter as tk
@@ -30,17 +32,21 @@ beatTimes,bpm = extractBeats(path)
 pygame.init()
 pygame.mixer.init()
 
-WIDTH, HEIGHT, SPRITES, PLAYER1_POS, PLAYER2_POS = constants.WIDTH, constants.HEIGHT, constants.SPRITES, constants.PLAYER1_POS, constants.PLAYER2_POS
-
-screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN | pygame.SCALED)
+WIDTH, HEIGHT, SPRITES, PLAYER1_POS, PLAYER2_POS, screen, font, bigFont = (
+    constants.WIDTH,
+    constants.HEIGHT,
+    constants.SPRITES,
+    constants.PLAYER1_POS,
+    constants.PLAYER2_POS,
+    constants.screen,
+    constants.font,
+    constants.bigFont
+)
 
 bg = pygame.image.load("./assets/bg.png").convert()
 bg = pygame.transform.scale(bg, (WIDTH, HEIGHT))
 pygame.display.set_caption("OBOH")
 clock = pygame.time.Clock()
-
-font = pygame.font.Font("./assets/Carnevalee Freakshow.ttf", 30)  # font name, size
-bigFont = pygame.font.Font("./assets/Carnevalee Freakshow.ttf", 100)  # font name, size
 
 pygame.mixer.init()
 pygame.mixer.music.load(path)
@@ -133,6 +139,13 @@ def mainGame():
     combo2Surf = font.render("combo p2: " + "".join(combo.getKeyString(False)), True, constants.WHITE)
     screen.blit(combo1Surf, (constants.firstBarStartX+200, constants.barY-50))
     screen.blit(combo2Surf, (constants.secondBarStartX-500, constants.barY-50))
+    bigText = bigFont.render(constants.bigText, True, constants.WHITE)
+    bigTextPos = (WIDTH*0.5 + random.randint(math.floor(-WIDTH*0.05), math.floor(WIDTH*0.05)), HEIGHT*0.3 + random.randint(math.floor(-HEIGHT*0.05), math.floor(HEIGHT*0.05)))
+    text_rect = bigText.get_rect(center=bigTextPos)
+    screen.blit(bigText, text_rect)
+    constants.updateBigText()
+        
+
     return True
 
 

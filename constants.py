@@ -1,7 +1,13 @@
 import pygame
 pygame.init()
+
 _info = pygame.display.Info()
 WIDTH, HEIGHT = _info.current_w, _info.current_h
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN | pygame.SCALED)
+
+font = pygame.font.Font("./assets/Carnevalee Freakshow.ttf", 30)  # font name, size
+bigFont = pygame.font.Font("./assets/Carnevalee Freakshow.ttf", 100)  # font name, size
+bigText = ""
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -31,6 +37,18 @@ secondBarStartX = WIDTH - 50
 barY = HEIGHT - 100
 barWidth = 400
 barHeight = 20
+
+bigTextStartTime = 0
+
+def rednerBigText(text):
+    global bigText, bigTextStartTime
+    bigTextStartTime = pygame.time.get_ticks()
+    bigText = text
+    
+def updateBigText():
+    global bigText, bigTextStartTime
+    if (pygame.time.get_ticks() - bigTextStartTime > 200):
+        bigText = ""
 
 def clamp(value, min, max):
     return min if value < min else (max if value > max else (value))
