@@ -1,4 +1,7 @@
-WIDTH, HEIGHT = 800, 400
+import pygame.display
+pygame.init()
+_info = pygame.display.Info()
+WIDTH, HEIGHT = _info.current_w, _info.current_h
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)

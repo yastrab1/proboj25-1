@@ -3,8 +3,7 @@ import pygame
 import constants
 
 
-
-def renderTracker(screen,beatTimes,currentTime):
+def renderTracker(screen, beatTimes, currentTime):
     BEAT_LINE_X = constants.WIDTH / 2
     for beat in beatTimes:
         dt = beat - currentTime

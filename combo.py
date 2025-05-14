@@ -4,16 +4,16 @@ import constants
 
 
 class ComboManager:
-    def __init__(self,beatTimes):
+    def __init__(self, beatTimes,combos):
         self.keys = []
         self.beatTimes = beatTimes
         self.combos = {
-            'fernet':lambda:print("FERNET!!")
+            'fernet': lambda: print("FERNET!!")
         }
 
-    def registerEvent(self,keyCode:int,currentTime):
+    def registerEvent(self, keyCode: int, currentTime):
         for beat in self.beatTimes:
-            if abs(beat - currentTime) < constants.COMBO_TOLERANCY/2:
+            if abs(beat - currentTime) < constants.COMBO_TOLERANCY / 2:
                 self.keys.append(keyCode)
                 self.matchCombos()
                 return
@@ -30,4 +30,12 @@ class ComboManager:
         self.keys = []
 
     def __str__(self):
-        return str(list(map(pygame.key.name,self.keys)))
+        return str(list(map(pygame.key.name, self.keys)))
+
+class Combos:
+    def __init__(self,character):
+        self.character = character
+
+    def fernet(self):
+        print("fernet")
+        self.character.image =
