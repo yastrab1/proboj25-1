@@ -16,7 +16,7 @@ from linkDialog import SimpleApp
 app = SimpleApp()
 path = app.run()
 
-
+#path = "./songs/Fernet Cez Internet [AlGVdv7uD98].mp3"
 beatTimes = extractBeats(path)
 
 pygame.init()
