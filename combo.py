@@ -12,6 +12,7 @@ class ComboManager:
         self.combos = {
             'f': combos.fernet(True),
             'b': combos.indians(True),
+            'l': combos.indians(False)
         }
 
     def registerEvent(self, keyCode: int, currentTime):
@@ -52,6 +53,7 @@ class Combos:
     def indians(self,isPlayer1):
         def internal():
             print("indiani")
+            constants.indians.play()
             prechod = pygame.sprite.Sprite()
             indianPos = (0 if isPlayer1 else constants.WIDTH, 500)
             indians = TimedSprite(indianPos, 1000, "assets/indiani.png",lambda x:self.animateIndians(x,isPlayer1))
