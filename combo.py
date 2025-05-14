@@ -25,7 +25,7 @@ class ComboManager:
             # 'left': combos.jarmilka,
             # 'd': combos.shoot,
             # 'right': combos.shoot,
-            'da':combos.snipe,
+            'da':combos.machineGun,
             'rightleft':combos.snipe,
         }
 
@@ -64,7 +64,7 @@ class ComboManager:
 
         if keyStringP2 in self.combos.keys():
             self.combos[keyStringP2](False)
-            self.breakCombo(True)
+            self.breakCombo(False)
         shouldClear1 = True
         shouldClear2 = True
         for keyCombo,_ in self.combos.items():
@@ -153,6 +153,7 @@ class Combos:
         otherPlayer = self.player2 if isPlayer1 else self.player1
         player.setTimedTexture(player.textures.shoot, 500)
         otherPlayer.dealDamage(constants.BULLET_DMG)
+        constants.beng.play()
         # TODO animate bullet
 
     def snipe(self, isPlayer1):
@@ -160,6 +161,7 @@ class Combos:
         otherPlayer = self.player2 if isPlayer1 else self.player1
         player.setTimedTexture(player.textures.snipe,1000)
         otherPlayer.dealDamage(constants.BULLET_DMG)
+        constants.beng.play()
         #TODO animate bullet
 
 
@@ -177,6 +179,7 @@ class Combos:
 
         player.setTimedTexture(player.textures.machineGun,1000)
         otherPlayer.health -= constants.MACHINE_DMG
+        constants.bengLong.play()
 
     def smoke(self, isPlayer1):
         print("smoke")

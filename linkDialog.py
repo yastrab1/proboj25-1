@@ -15,7 +15,7 @@ class SimpleApp:
         self.root.title("Simple Tkinter App")
 
         # Label
-        label = tk.Label(self.root, text="Enter something:")
+        label = tk.Label(self.root, text="Enter YT LINK:")
         label.pack(pady=10)
 
         # Entry
