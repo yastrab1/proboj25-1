@@ -6,6 +6,7 @@ from numpy.ma.core import anomalies
 
 import constants
 from character import Character, CharacterTextures, TimedSprite, Player
+from constants import renderBigText
 
 
 class ComboManager:
@@ -38,8 +39,6 @@ class ComboManager:
         self.chargingTrainp2 = False
 
     def registerEvent(self, keyCode: int, currentTime):
-        foundComboP1 = False
-        foundComboP2 = False
         for beat in self.beatTimes:
             if abs(beat - currentTime) < constants.COMBO_TOLERANCY / 2:
                 if pygame.key.name(keyCode) in self.allowedP1Keys:
@@ -48,10 +47,7 @@ class ComboManager:
                     self.keysP2.append(keyCode)
                 self.matchCombos()
                 return
-        if not foundComboP1:
-            self.breakCombo(True)
-        if not foundComboP2:
-            self.breakCombo(False)
+        renderBigText("OFFBEAT!")
             
 
     def getKeyString(self, isPlayer1):
@@ -80,10 +76,10 @@ class ComboManager:
             if keyCombo.startswith(keyStringP2):
                 shouldClear2 = False
         if shouldClear1:
-            constants.rednerBigText("MANCATO!")
+            constants.renderBigText("MANCATO!")
             self.breakCombo(True)
         if shouldClear2:
-            constants.rednerBigText("MANCATO!")
+            constants.renderBigText("MANCATO!")
             self.breakCombo(False)
 
 
@@ -175,7 +171,7 @@ class Combos:
     def shoot(self, isPlayer1):
         print("shooting")
         if random.randint(1, 2) == 1:
-            constants.rednerBigText('MANCATO!')
+            constants.renderBigText('MANCATO!')
             return
         player = self.player1 if isPlayer1 else self.player2
         otherPlayer = self.player2 if isPlayer1 else self.player1
