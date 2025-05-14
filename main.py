@@ -9,6 +9,7 @@ import constants
 from beat import extractBeats
 from beatTracker import renderTracker
 from combo import ComboManager, Combos
+from healthbar import renderHealthBar
 
 # --- Audio analysis (before starting pygame) ---
 AUDIO_PATH = './songs/Fernet Cez Internet [AlGVdv7uD98].mp3'
@@ -67,6 +68,7 @@ while running:
     current_time = time.time() - start_time if start_time else 0
 
     renderTracker(screen,beatTimes,current_time)
+    renderHealthBar(screen,100,50)
     # Event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

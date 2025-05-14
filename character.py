@@ -14,7 +14,7 @@ class Character(pg.sprite.Sprite):
         self.scale = scale
         self.image = pg.transform.scale_by(pg.image.load(self.textures.deault).convert_alpha(), scale)
         self.rect = self.image.get_rect(topleft=position)
-        
+
     def setTexture(self,texture):
         self.image = pg.transform.scale_by(pg.image.load(texture).convert_alpha(), self.scale)
         
