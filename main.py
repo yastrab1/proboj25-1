@@ -43,8 +43,6 @@ threading.Thread(target=play_music).start()
 points = 0
 pressedBeat = -100
 
-all_sprites = pygame.sprite.Group()
-
 playerTexturesBlue = ch.CharacterTextures(
     default="assets/player1.png",
     combo_fernet="assets/fernet.png"
