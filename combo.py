@@ -66,10 +66,8 @@ class Combos:
     def indians(self,isPlayer1):
         print("indiani")
         constants.indians.play()
-        prechod = pygame.sprite.Sprite()
         indianPos = (0 if isPlayer1 else constants.WIDTH, 500)
         indians = TimedSprite(indianPos, 1000, "assets/indiani.png",lambda x:self.animateIndians(x,isPlayer1))
-        indiansSpawnTime = pygame.time.get_ticks()
         constants.SPRITES.add(indians)
         if (isPlayer1):
             self.player2.health -= 50
@@ -84,6 +82,7 @@ class Combos:
 
             self.player1.health += 10
         else:
+            
             self.player2.health += 10
         
     
