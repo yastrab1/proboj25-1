@@ -164,8 +164,8 @@ class Combos:
             jarmilkaPos = pygame.Vector2(constants.WIDTH * 0.7, constants.HEIGHT * 0.35),
             curtainPos = constants.PLAYER2_POS
             self.player2.increaseHealth(constants.BEER_HEAL*3)
-        curtain = TimedSprite(curtainPos, 700, "assets/zaclony.png",lambda x:self.aPass(), scale=0.5)
-        jarmilka = TimedSprite(jarmilkaPos, 1100, "assets/jarmilka.png",lambda x:self.aPass(), scale=0.3)
+        curtain = TimedSprite(curtainPos, 1500, "assets/zaclony.png",lambda x:self.aPass(), scale=0.5)
+        jarmilka = TimedSprite(jarmilkaPos, 3000, "assets/jarmilka.png",lambda x:self.aPass(), scale=0.3)
         self.player2.health += 10
         curtain = TimedSprite(curtainPos, 700, "assets/zaclony.png", lambda x: self.aPass(), scale=0.5)
         jarmilka = TimedSprite(jarmilkaPos, 1100, "assets/jarmilka.png", lambda x: self.aPass(), scale=0.3)
@@ -206,7 +206,7 @@ class Combos:
         otherPlayer = self.player2 if isPlayer1 else self.player1
 
         player.setTimedTexture(player.textures.machineGun,1000)
-        otherPlayer.health -= constants.MACHINE_DMG
+        otherPlayer.dealDamage(constants.MACHINE_DMG)
         constants.bengLong.play()
 
     def smoke(self, isPlayer1):

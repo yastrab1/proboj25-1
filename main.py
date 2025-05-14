@@ -30,6 +30,8 @@ elif os_name == "Darwin":
 constants.AUDIO_PATH = path
 beatTimes,bpm = extractBeats(path)
 
+constants.COMBO_TOLERANCY *= bpm
+
 pygame.init()
 pygame.mixer.init()
 
