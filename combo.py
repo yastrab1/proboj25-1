@@ -13,7 +13,8 @@ class ComboManager:
         self.allowedP1Keys = ["q","w","e","a","s","d"]
         self.allowedP2Keys = ["left","right","up","down","page down","page up"]
         self.combos = {
-            'w': combos.fernet,
+            'w': combos.beer,
+            'up': combos.beer,
             's': combos.indians,
             'up': combos.indians,
             'a': combos.jarmilka,
@@ -62,7 +63,13 @@ class Combos:
 
         print("fernet")
         player.setTimedTexture(player.textures.combo_fernet, 500.0)
+        
+    def beer(self, isPlayer1):
+        player = self.player1 if isPlayer1 else self.player2
 
+        print("pivo")
+        player.setTimedTexture(player.textures.pije_pivo, 200.0)
+        player.health += 10
 
     def indians(self,isPlayer1):
         print("indiani")
@@ -84,11 +91,11 @@ class Combos:
         if isPlayer1:
             jarmilkaPos = pygame.Vector2(constants.WIDTH*0.3, constants.HEIGHT*0.35),
             curtainPos = constants.PLAYER1_POS
-            self.player1.health += 10
+            self.player1.health += 30
         else:
             jarmilkaPos = pygame.Vector2(constants.WIDTH*0.7, constants.HEIGHT*0.35),
             curtainPos = constants.PLAYER2_POS
-            self.player2.health += 10
+            self.player2.health += 30
         curtain = TimedSprite(curtainPos, 700, "assets/zaclony.png",lambda x:self.aPass(), scale=0.5)
         jarmilka = TimedSprite(jarmilkaPos, 1100, "assets/jarmilka.png",lambda x:self.aPass(), scale=0.3)
         constants.SPRITES.add(jarmilka)

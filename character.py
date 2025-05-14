@@ -1,10 +1,11 @@
 import pygame as pg
 
 class CharacterTextures:
-    def __init__(self, default, attack_default = None, combo_fernet = None):
+    def __init__(self, default, attack_default = None, combo_fernet = None, pije_pivo = None):
         self.deault = default
         self.attack_default = attack_default
         self.combo_fernet = combo_fernet
+        self.pije_pivo = pije_pivo
         
 
 class Character(pg.sprite.Sprite):

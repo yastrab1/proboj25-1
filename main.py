@@ -62,10 +62,12 @@ bountyBoard = pygame.image.load("./assets/gameEnd.png")
 
 playerTexturesBlue = ch.CharacterTextures(
     default="assets/player1.png",
+    pije_pivo="assets/beer/player1",
     combo_fernet="assets/fernet.png"
 )
 playerTexturesRed = ch.CharacterTextures(
     default="assets/player2.png",
+    pije_pivo="assets/beer/player2",
     combo_fernet="assets/fernet.png"
 )
 
