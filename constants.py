@@ -11,6 +11,9 @@ BLUE = (0, 0, 255)
 COMBO_TOLERANCY = 0.4
 
 MAX_HEALTH = 100
+BULLET_DMG = 5
+MACHINE_DMG = 15
+BEER_HEAL = 20
 
 SPRITES = pygame.sprite.Group()
 

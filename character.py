@@ -1,10 +1,14 @@
 import pygame as pg
 
 class CharacterTextures:
-    def __init__(self, default, attack_default = None, combo_fernet = None):
+    def __init__(self, default, attack_default = None, combo_fernet = None,shoot = None,machineGun = None,snipe = None,beer=None):
         self.deault = default
         self.attack_default = attack_default
         self.combo_fernet = combo_fernet
+        self.shoot = shoot
+        self.machineGun = machineGun
+        self.snipe = snipe
+        self.beer = beer
         
 
 class Character(pg.sprite.Sprite):
@@ -25,10 +29,14 @@ class Player(Character):
     def __init__(self, textures : CharacterTextures,position:pg.Vector2,scale = 1.0,first:bool = True):
         super().__init__(textures,position,scale)
         self.health=100
+        self.shortTermDMGScale = 1
         
     def update(self):
         pass
-        
+
+    def dealDamage(self, damage):
+        self.health -= damage*self.shortTermDMGScale
+        self.shortTermDMGScale = 1
 class TimedSprite(pg.sprite.Sprite):
     def __init__(self, position, lifetime_ms, image,func, scale =1.0):
         super().__init__()
