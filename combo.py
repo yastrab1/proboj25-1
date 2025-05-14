@@ -61,7 +61,7 @@ class Combos:
         player = self.player1 if isPlayer1 else self.player2
 
         print("fernet")
-        player.setTexture(player.textures.combo_fernet)
+        player.setTimedTexture(player.textures.combo_fernet, 500.0)
 
 
     def indians(self,isPlayer1):
