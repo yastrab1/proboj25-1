@@ -47,7 +47,7 @@ barHeight = 20
 
 bigTextStartTime = 0
 
-def rednerBigText(text):
+def renderBigText(text):
     global bigText, bigTextStartTime
     bigTextStartTime = pygame.time.get_ticks()
     bigText = text
