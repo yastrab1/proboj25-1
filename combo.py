@@ -3,6 +3,7 @@ from numpy.ma.core import anomalies
 
 import constants
 from character import Character, CharacterTextures, TimedSprite
+from constants import WIDTH
 
 
 class ComboManager:
@@ -10,8 +11,8 @@ class ComboManager:
         self.keys = []
         self.beatTimes = beatTimes
         self.combos = {
-            'f': combos.fernet,
-            'b': combos.indians,
+            'f': combos.fernet(True),
+            'b': combos.indians(True),
         }
 
     def registerEvent(self, keyCode: int, currentTime):
@@ -37,24 +38,27 @@ class ComboManager:
 
 
 class Combos:
-    def __init__(self, character: Character):
-        self.character = character
+    def __init__(self, player1,player2):
+        self.player1 = player1
+        self.player2 = player2
 
-    def fernet(self):
-        print("fernet")
-        self.character.setTexture(self.character.textures.combo_fernet)
+    def fernet(self, isPlayer1):
+        player = self.player1 if isPlayer1 else self.player2
+        def internal():
+            print("fernet")
+            player.setTexture(player.textures.combo_fernet)
+        return internal
 
-    def normal(self):
-        self.character.setTexture(self.character.textures.deault)
 
+    def indians(self,isPlayer1):
+        def internal():
+            print("indiani")
+            prechod = pygame.sprite.Sprite()
+            indianPos = (0 if isPlayer1 else WIDTH,500)
+            indians = TimedSprite(indianPos, 1000, "assets/indiani.png",lambda x:self.animateIndians(x,isPlayer1))
+            indiansSpawnTime = pygame.time.get_ticks()
+            constants.SPRITES.add(indians)
+        return internal
 
-    def indians(self):
-        print("indiani")
-        prechod = pygame.sprite.Sprite()
-        indianPos = (0,500)
-        indians = TimedSprite(indianPos, 1000, "assets/indiani.png",self.animateIndians)
-        indiansSpawnTime = pygame.time.get_ticks()
-        constants.SPRITES.add(indians)
-
-    def animateIndians(self,sprite:TimedSprite):
-        sprite.rect = sprite.rect.move(20,0)
+    def animateIndians(self,sprite:TimedSprite,isPlayer1):
+        sprite.rect = sprite.rect.move(20 if isPlayer1 else -20,0)
