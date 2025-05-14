@@ -21,7 +21,9 @@ class ComboManager:
             's': combos.indians,
             'down': combos.indians,
             'a': combos.jarmilka,
-            'left': combos.jarmilka
+            'left': combos.jarmilka,
+            'd': combos.shoot,
+            'right': combos.shoot
         }
 
     def registerEvent(self, keyCode: int, currentTime):
@@ -86,7 +88,7 @@ class ComboManager:
                     pygame.mixer.music.load("./songs/Horkýže Slíže - Vlak [oficiálne audio] [EVTLWqCjgeE].mp3")
                     pygame.mixer.music.play()
                 else:
-                    pygame.mixer.music.set_volume(((len(keyString) - TRAIN_MUSIC_THRESHOLD) * 40 + 10) / 100)
+                    pygame.mixer.music.set_volume(((len(keyString) - constants.TRAIN_MUSIC_THRESHOLD) * 40 + 10) / 100)
 
     def breakCombo(self, first: bool):
         if first:
@@ -145,8 +147,8 @@ class Combos:
             return
         player = self.player1 if isPlayer1 else self.player2
         otherPlayer = self.player2 if isPlayer1 else self.player1
-        player.setTimedTexture(player.textures.shoot,1000)
-        otherPlayer.health -= constants.BULLET_DMG
+        player.setTimedTexture(player.textures.shoot, 500)
+        otherPlayer.dealDamage(constants.BULLET_DMG)
         # TODO animate bullet
 
     def snipe(self, isPlayer1):
@@ -166,7 +168,7 @@ class Combos:
     def beer(self, isPlayer1):
         print("beer")
         player = self.player1 if isPlayer1 else self.player2
-        player.setTimedTexture(player.textures.beer, 200)
+        player.setTimedTexture(player.textures.beer, 500)
         player.increaseHealth(constants.BEER_HEAL)
         print(player.health)
 

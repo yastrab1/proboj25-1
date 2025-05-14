@@ -2,7 +2,7 @@ import pygame as pg
 from constants import clamp
 
 class CharacterTextures:
-    def __init__(self, default, attack_default = None, combo_fernet = None,shoot = None,machineGun = None,snipe = None,beer=None):
+    def __init__(self, default, attack_default = None, combo_fernet = None, shoot = None, machineGun = None,snipe = None,beer=None):
         self.deault = default
         self.attack_default = attack_default
         self.shoot=shoot,
