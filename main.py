@@ -21,7 +21,8 @@ pygame.mixer.init()
 
 WIDTH, HEIGHT, SPRITES = constants.WIDTH, constants.HEIGHT, constants.SPRITES
 
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN | pygame.SCALED)
+
 bg = pygame.image.load("./assets/bg.png").convert()
 bg = pygame.transform.scale(bg, (WIDTH, HEIGHT))
 pygame.display.set_caption("Beat Visualizer")
