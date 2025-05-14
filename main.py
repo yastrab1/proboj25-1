@@ -54,16 +54,18 @@ playerTexturesRed = ch.CharacterTextures(
     combo_fernet="assets/fernet.png"
 )
 
-player1 = ch.Character(
+player1 = ch.Player(
     textures=playerTexturesBlue,
     position=Vector2(0, 0),
-    scale=0.4
+    scale=0.4,
+    first=True
 )
 
-player2 = ch.Character(
+player2 = ch.Player(
     textures=playerTexturesRed,
     position=Vector2(WIDTH-500, 0),
-    scale=0.4
+    scale=0.4,
+    first=False
 )
 
 all_sprites.add(player1)
