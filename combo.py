@@ -40,4 +40,8 @@ class Combos:
     def fernet(self):
         print("fernet")
         self.character.setTexture(self.character.textures.combo_fernet)
+        
+    def indians(self):
+        print("indiani")
+        
 
