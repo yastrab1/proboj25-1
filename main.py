@@ -43,24 +43,36 @@ threading.Thread(target=play_music).start()
 points = 0
 pressedBeat = -100
 
+all_sprites = pygame.sprite.Group()
 
-playerTextures = ch.CharacterTextures(
-    default="assets/player.png",
+playerTexturesBlue = ch.CharacterTextures(
+    default="assets/player1.png",
+    combo_fernet="assets/fernet.png"
+)
+playerTexturesRed = ch.CharacterTextures(
+    default="assets/player2.png",
     combo_fernet="assets/fernet.png"
 )
 
-player = ch.Character(
-    textures=playerTextures,
+player1 = ch.Character(
+    textures=playerTexturesBlue,
     position=Vector2(0, 0),
     scale=0.4
 )
 
-SPRITES.add(player)
+player2 = ch.Character(
+    textures=playerTexturesRed,
+    position=Vector2(WIDTH-500, 0),
+    scale=0.4
+)
+
+all_sprites.add(player1)
+SPRITES.add(player2)
 
 # Main loop
 running = True
 
-combo = ComboManager(beatTimes,Combos(player))
+combo = ComboManager(beatTimes,Combos(player1))
 
 while running:
     screen.blit(bg, (0, 0))
