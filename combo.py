@@ -7,34 +7,44 @@ from character import Character, CharacterTextures, TimedSprite, Player
 
 class ComboManager:
     def __init__(self, beatTimes, combos):
-        self.keys = []
+        self.keysP1 = []
+        self.keysP2 = []
         self.beatTimes = beatTimes
+        self.allowedP1Keys = ["q","w","e","a","s","d"]
+        self.allowedP2Keys = ["left","right","up","down","page down","page up"]
         self.combos = {
-            'f': combos.fernet(True),
-            'b': combos.indians(True),
-            'l': combos.indians(False),
-            'a': combos.jarmilka(True)
+            'w': combos.fernet,
+            's': combos.indians,
+            'up': combos.indians,
+            'a': combos.jarmilka
         }
     def registerEvent(self, keyCode: int, currentTime):
         for beat in self.beatTimes:
             if abs(beat - currentTime) < constants.COMBO_TOLERANCY / 2:
-                self.keys.append(keyCode)
+                if pygame.key.name(keyCode) in self.allowedP1Keys:
+                    self.keysP1.append(keyCode)
+                else:
+                    self.keysP2.append(keyCode)
                 self.matchCombos()
                 return
         self.breakCombo()
 
     def matchCombos(self):
-        keyString = "".join(list(map(pygame.key.name, self.keys)))
-        if keyString in self.combos.keys():
-            self.combos[keyString]()
-            self.breakCombo()
-            return
+        keyStringP1 = "".join(list(map(pygame.key.name, self.keysP1)))
+        keyStringP2 = "".join(list(map(pygame.key.name, self.keysP2)))
+        print(keyStringP1)
+        if keyStringP1 in self.combos.keys():
+            self.combos[keyStringP1](True)
+            self.breakCombo(True)
+        if keyStringP2 in self.combos.keys():
+            self.combos[keyStringP2](True)
+            self.breakCombo(False)
 
     def breakCombo(self):
-        self.keys = []
+        self.keysP1 = []
 
     def __str__(self):
-        return str(list(map(pygame.key.name, self.keys)))
+        return str(list(map(pygame.key.name, self.keysP1)))
 
 
 class Combos:
@@ -44,10 +54,9 @@ class Combos:
 
     def fernet(self, isPlayer1):
         player = self.player1 if isPlayer1 else self.player2
-        def internal():
-            print("fernet")
-            player.setTexture(player.textures.combo_fernet)
-        return internal
+
+        print("fernet")
+        player.setTexture(player.textures.combo_fernet)
 
 
     def indians(self,isPlayer1):
