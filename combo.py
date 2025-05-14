@@ -33,17 +33,12 @@ class ComboManager:
         for beat in self.beatTimes:
             if abs(beat - currentTime) < constants.COMBO_TOLERANCY / 2:
                 if pygame.key.name(keyCode) in self.allowedP1Keys:
-                    foundComboP1 = True
                     self.keysP1.append(keyCode)
                 else:
-                    foundComboP2 = True
                     self.keysP2.append(keyCode)
                 self.matchCombos()
                 return
-        if not foundComboP1:
-            self.breakCombo(True)
-        if not foundComboP2:
-            self.breakCombo(False)
+            
 
     def getKeyString(self, isPlayer1):
         keyList = self.keysP1 if isPlayer1 else self.keysP2
@@ -62,7 +57,7 @@ class ComboManager:
 
         if keyStringP2 in self.combos.keys():
             self.combos[keyStringP2](False)
-            self.breakCombo(True)
+            self.breakCombo(False)
         shouldClear1 = True
         shouldClear2 = True
         for keyCombo,_ in self.combos.items():
