@@ -78,8 +78,9 @@ while running:
     screen.blit(bg, (0, 0))
     current_time = time.time() - start_time if start_time else 0
 
-    renderTracker(screen,beatTimes,current_time)
     renderHealthBar(screen,100,50)
+    SPRITES.update()
+    renderTracker(screen,beatTimes,current_time)
     SPRITES.update()
     # Event handling
     for event in pygame.event.get():
