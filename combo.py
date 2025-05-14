@@ -1,3 +1,5 @@
+import random
+
 import pygame
 from numpy.ma.core import anomalies
 
@@ -75,7 +77,7 @@ class Combos:
         print("indiani")
         constants.indians.play()
         indianPos = (0 if isPlayer1 else constants.WIDTH, 500)
-        indians = TimedSprite(indianPos, 1000, "assets/indiani.png",lambda x:self.animateIndians(x,isPlayer1))
+        indians = TimedSprite(indianPos, 1000, "assets/indiani.png", lambda x:self.moveOnScreen(x, isPlayer1))
         constants.SPRITES.add(indians)
         if (isPlayer1):
             self.player2.health -= 50
@@ -101,10 +103,61 @@ class Combos:
         constants.SPRITES.add(jarmilka)
         constants.SPRITES.add(curtain)
         
-    
+    def shoot(self,isPlayer1):
+        print("shooting")
+        if random.randint(1,2) == 1:
+            return
+        player = self.player1 if isPlayer1 else self.player2
+        otherPlayer = self.player2 if isPlayer1 else self.player1
+        player.setTexture(player.textures.shoot)
+        otherPlayer.health -= constants.BULLET_DMG
+        #TODO animate bullet
+    def snipe(self,isPlayer1):
+        print("sniping")
+        player = self.player1 if isPlayer1 else self.player2
+        otherPlayer = self.player2 if isPlayer1 else self.player1
+        player.setTexture(player.textures.snipe)
+        otherPlayer.health -= constants.BULLET_DMG
+        #TODO animate bullet
+
+    def beer(self,isPlayer1):
+        print("beer")
+        player = self.player1 if isPlayer1 else self.player2
+        player.setTexture(player.textures.beer)
+        player.health += constants.BEER_HEAL
+
+
+    def machineGun(self,isPlayer1):
+        print("machine gun")
+        player = self.player1 if isPlayer1 else self.player2
+        otherPlayer = self.player2 if isPlayer1 else self.player1
+
+        player.setTexture(player.textures.machineGun)
+        otherPlayer.health -= constants.MACHINE_DMG
+
+    def smoke(self,isPlayer1):
+        print("smoke")
+        player = self.player1 if isPlayer1 else self.player2
+        player.shortTermDMGScale = 0.8
+
+    def train(self,isPlayer1):
+        print("train")
+        player = self.player1 if isPlayer1 else self.player2
+        otherPlayer = self.player2 if isPlayer1 else self.player1
+
+        pygame.mixer.pause()
+        pygame.mixer.music.load("/songs/Horkýže Slíže - Vlak [oficiálne audio] [EVTLWqCjgeE].mp3")
+        pygame.mixer.music.play()
+        indianPos = (0 if isPlayer1 else constants.WIDTH, 500)
+        indians = TimedSprite(indianPos, 1000, "assets/indiani.png", lambda x:self.moveOnScreen(x, isPlayer1))
+        constants.SPRITES.add(indians)
+        if (isPlayer1):
+            self.player2.health -= 50
+        else:
+            self.player1.health -= 50
+
     #animations
-    
-    def animateIndians(self,sprite:TimedSprite,isPlayer1):
+    def moveOnScreen(self, sprite:TimedSprite, isPlayer1):
         sprite.rect = sprite.rect.move(20 if isPlayer1 else -20,0)
         
     def aPass(self):

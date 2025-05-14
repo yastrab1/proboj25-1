@@ -1,7 +1,7 @@
 import pygame as pg
 
 class CharacterTextures:
-    def __init__(self, default, attack_default = None, combo_fernet = None, pije_pivo = None):
+    def __init__(self, default, attack_default = None, combo_fernet = None,shoot = None,machineGun = None,snipe = None,beer=None):
         self.deault = default
         self.attack_default = attack_default
         self.combo_fernet = combo_fernet
@@ -25,25 +25,32 @@ class Character(pg.sprite.Sprite):
     def resetTexture(self):
         self.image = pg.transform.scale_by(pg.image.load(self.textures.deault).convert_alpha(), self.scale)
         self.hasSetTimedTexture = True
-        
+
     def setTimedTexture(self, texture, time=1.0):
         self.image = pg.transform.scale_by(pg.image.load(texture).convert_alpha(), self.scale)
         self.hasSetTimedTexture = True
         self.changeTime = time
         self.textureResetTime = pg.time.get_ticks()
-        
-        
+
+
     def update(self):
         current_time = pg.time.get_ticks()
         if current_time - self.textureResetTime >= self.changeTime and self.hasSetTimedTexture:
             self.resetTexture()
-        
+
 
 class Player(Character):
     def __init__(self, textures : CharacterTextures,position:pg.Vector2,scale = 1.0,first:bool = True):
         super().__init__(textures,position,scale)
         self.health=100
-        
+        self.shortTermDMGScale = 1
+
+    def update(self):
+        pass
+
+    def dealDamage(self, damage):
+        self.health -= damage*self.shortTermDMGScale
+        self.shortTermDMGScale = 1
 class TimedSprite(pg.sprite.Sprite):
     def __init__(self, position, lifetime_ms, image,func, scale =1.0):
         super().__init__()

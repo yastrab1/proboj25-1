@@ -62,13 +62,19 @@ bountyBoard = pygame.image.load("./assets/gameEnd.png")
 
 playerTexturesBlue = ch.CharacterTextures(
     default="assets/player1.png",
-    pije_pivo="assets/beer/player1",
-    combo_fernet="assets/fernet.png"
+    combo_fernet="assets/fernet.png",
+    shoot="assets/shoot/player1.png",
+    machineGun="assets/machineGun/player1.png",
+    snipe="assets/snipe/player1.png",
+    beer="assets/beer/player1.png",
 )
 playerTexturesRed = ch.CharacterTextures(
     default="assets/player2.png",
-    pije_pivo="assets/beer/player2",
-    combo_fernet="assets/fernet.png"
+    combo_fernet="assets/fernet.png",
+    shoot="assets/shoot/player2.png",
+    machineGun="assets/machineGun/player2.png",
+    snipe="assets/snipe/player2.png",
+    beer= "assets/beer/player2.png",
 )
 
 player1 = ch.Player(
@@ -90,15 +96,16 @@ SPRITES.add(player2)
 
 running = True
 
-combo = ComboManager(beatTimes,Combos(player1,player2))
+combo = ComboManager(beatTimes, Combos(player1, player2))
+
 
 def showResult():
-    screen.blit(bountyBoard, bountyBoard.get_rect(center=(WIDTH//2, HEIGHT//2)))
-    text = "Player 1 won!" if player2.health<0 else "Player 2 won!"
-    textSurface = bigFont.render(text, True, (255,255,255))
-    screen.blit(textSurface, textSurface.get_rect(center=(WIDTH//2, HEIGHT//2-50)))
-    quitSurface = font.render("Press 'q' to quit", True, (255,255,255))
-    screen.blit(quitSurface, quitSurface.get_rect(center=(WIDTH//2, HEIGHT//2+100)))
+    screen.blit(bountyBoard, bountyBoard.get_rect(center=(WIDTH // 2, HEIGHT // 2)))
+    text = "Player 1 won!" if player2.health < 0 else "Player 2 won!"
+    textSurface = bigFont.render(text, True, (255, 255, 255))
+    screen.blit(textSurface, textSurface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50)))
+    quitSurface = font.render("Press 'q' to quit", True, (255, 255, 255))
+    screen.blit(quitSurface, quitSurface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100)))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit(0)
@@ -123,7 +130,6 @@ def mainGame():
     SPRITES.draw(screen)
     screen.blit(font.render("combo: " + str(combo), True, constants.WHITE), (WIDTH // 2, HEIGHT // 2))
     return True
-
 
 
 while running:
