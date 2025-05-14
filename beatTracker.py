@@ -7,18 +7,24 @@ from constants import HEIGHT
 
 import math
 
-def pulse_scale(current_time, bpm, base_scale=1.0, pop_scale=1.5, sharpness=20):
-    beat_interval = 60 / bpm
-    time_since_last_beat = current_time % beat_interval
+import math
 
-    # Center time around the beat
-    time_from_beat = time_since_last_beat - beat_interval / 2
+def beat_pulse_scale(closeness, max_scale=2, min_scale=0.8, sharpness=50):
+    """
+    Returns a scale factor for a dot based on its closeness to the next beat.
 
-    # Gaussian pulse centered at 0 (the beat)
-    pulse = math.exp(-sharpness * time_from_beat ** 2)
+    Parameters:
+    - closeness: float, where 0 means perfectly on the beat.
+    - max_scale: float, the maximum scale when closeness is 0.
+    - min_scale: float, the minimum scale value (far from beat).
+    - sharpness: float, controls how fast the scale falls off from the peak.
 
-    return base_scale + (pop_scale - base_scale) * pulse
-
+    Returns:
+    - scale: float
+    """
+    # Use a Gaussian-like falloff centered at 0
+    scale = (max_scale - min_scale) * math.exp(-sharpness * closeness**2) + min_scale
+    return scale
 
 
 y = HEIGHT-110
@@ -27,7 +33,7 @@ def renderTracker(screen, beatTimes, currentTime,bpm):
     BEAT_LINE_X = constants.WIDTH / 2
     closestBeat = calculateClosest(beatTimes,currentTime)
     print(closestBeat)
-    scale = pulse_scale(currentTime, bpm)*20
+    scale = beat_pulse_scale(closestBeat)*20
     for beat in beatTimes:
         dt = beat - currentTime
         if 0 <= dt < 2:
@@ -35,5 +41,5 @@ def renderTracker(screen, beatTimes, currentTime,bpm):
             pygame.draw.circle(screen, constants.PURPLE, (x, y), scale)
     pygame.draw.line(screen, constants.WHITE, (BEAT_LINE_X, lineTop), (BEAT_LINE_X, constants.HEIGHT), 2)
 def calculateClosest(beatTimes,currentTime):
-    beatOffset = list(map(lambda beat: abs(beat - currentTime), beatTimes))
+    beatOffset = list(filter(lambda x:x>=0,map(lambda beat: beat - currentTime, beatTimes)))
     return min(beatOffset)
