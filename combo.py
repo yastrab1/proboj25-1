@@ -38,8 +38,6 @@ class ComboManager:
         self.chargingTrainp2 = False
 
     def registerEvent(self, keyCode: int, currentTime):
-        foundComboP1 = False
-        foundComboP2 = False
         for beat in self.beatTimes:
             if abs(beat - currentTime) < constants.COMBO_TOLERANCY / 2:
                 if pygame.key.name(keyCode) in self.allowedP1Keys:
@@ -48,10 +46,6 @@ class ComboManager:
                     self.keysP2.append(keyCode)
                 self.matchCombos()
                 return
-        if not foundComboP1:
-            self.breakCombo(True)
-        if not foundComboP2:
-            self.breakCombo(False)
             
 
     def getKeyString(self, isPlayer1):
