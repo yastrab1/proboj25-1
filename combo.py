@@ -27,21 +27,27 @@ class ComboManager:
                     self.keysP2.append(keyCode)
                 self.matchCombos()
                 return
-        self.breakCombo()
+        self.breakCombo(True)
+        self.breakCombo(False)
 
     def matchCombos(self):
         keyStringP1 = "".join(list(map(pygame.key.name, self.keysP1)))
         keyStringP2 = "".join(list(map(pygame.key.name, self.keysP2)))
         print(keyStringP1)
+        print(keyStringP2)
+        print(self.combos.keys())
         if keyStringP1 in self.combos.keys():
             self.combos[keyStringP1](True)
             self.breakCombo(True)
         if keyStringP2 in self.combos.keys():
-            self.combos[keyStringP2](True)
+            self.combos[keyStringP2](False)
             self.breakCombo(False)
 
-    def breakCombo(self):
-        self.keysP1 = []
+    def breakCombo(self,first:bool):
+        if first:
+            self.keysP1 = []
+        else:
+            self.keysP2 = []
 
     def __str__(self):
         return str(list(map(pygame.key.name, self.keysP1)))
@@ -60,30 +66,27 @@ class Combos:
 
 
     def indians(self,isPlayer1):
-        def internal():
-            print("indiani")
-            constants.indians.play()
-            prechod = pygame.sprite.Sprite()
-            indianPos = (0 if isPlayer1 else constants.WIDTH, 500)
-            indians = TimedSprite(indianPos, 1000, "assets/indiani.png",lambda x:self.animateIndians(x,isPlayer1))
-            indiansSpawnTime = pygame.time.get_ticks()
-            constants.SPRITES.add(indians)
-            if (isPlayer1):
-                self.player2.health -= 50
-            else:
-                self.player1.health -= 50
-        return internal
+        print("indiani")
+        constants.indians.play()
+        prechod = pygame.sprite.Sprite()
+        indianPos = (0 if isPlayer1 else constants.WIDTH, 500)
+        indians = TimedSprite(indianPos, 1000, "assets/indiani.png",lambda x:self.animateIndians(x,isPlayer1))
+        indiansSpawnTime = pygame.time.get_ticks()
+        constants.SPRITES.add(indians)
+        if (isPlayer1):
+            self.player2.health -= 50
+        else:
+            self.player1.health -= 50
+
 
     def jarmilka(self, isPlayer1):
-        def internal():
-            print("jarmilka")
-            constants.jarmilka_moan.play()
-            if isPlayer1:
-                
-                self.player1.health += 10
-            else:
-                self.player2.health += 10
-        return internal
+        print("jarmilka")
+        constants.jarmilka_moan.play()
+        if isPlayer1:
+
+            self.player1.health += 10
+        else:
+            self.player2.health += 10
         
     
     def animateIndians(self,sprite:TimedSprite,isPlayer1):
