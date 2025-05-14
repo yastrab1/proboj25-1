@@ -1,7 +1,7 @@
 import pygame
 
 import constants
-from character import Character
+from character import Character, CharacterTextures, TimedSprite
 
 
 class ComboManager:
@@ -11,6 +11,7 @@ class ComboManager:
         self.combos = {
             'f': combos.fernet,
             'b': combos.normal,
+            'i': combos.indians
         }
 
     def registerEvent(self, keyCode: int, currentTime):
@@ -43,9 +44,15 @@ class Combos:
         print("fernet")
         self.character.setTexture(self.character.textures.combo_fernet)
         
-    def indians(self):
-        print("indiani")
-        
 
     def normal(self):
         self.character.setTexture(self.character.textures.deault)
+        
+        
+    def indians(self):
+        print("indiani")
+        prechod = pygame.sprite.Sprite()
+        indianPos = (0,0)
+        indians = TimedSprite(indianPos, 100, "assets/indiani.png")
+        indiansSpawnTime = pygame.time.get_ticks()
+        constants.SPRITES.add(indians)

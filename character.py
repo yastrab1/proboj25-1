@@ -13,10 +13,26 @@ class Character(pg.sprite.Sprite):
         self.textures = textures
         self.scale = scale
         self.image = pg.transform.scale_by(pg.image.load(self.textures.deault).convert_alpha(), scale)
-        self.rect = self.image.get_rect(topleft=position)
+        self.rect = self.image.get_rect(center=position)
 
     def setTexture(self,texture):
         self.image = pg.transform.scale_by(pg.image.load(texture).convert_alpha(), self.scale)
         
     def resetTexture(self):
         self.image = pg.transform.scale_by(pg.image.load(self.textures.deault).convert_alpha(), self.scale)
+        
+    def update(self):
+        pass
+        
+class TimedSprite(pg.sprite.Sprite):
+    def __init__(self, position, lifetime_ms, image, scale =1.0):
+        super().__init__()
+        self.image = pg.transform.scale_by(pg.image.load(image).convert_alpha(), scale)
+        self.rect = self.image.get_rect(center=position)
+        self.spawn_time = pg.time.get_ticks()
+        self.lifetime = lifetime_ms
+
+    def update(self):
+        current_time = pg.time.get_ticks()
+        if current_time - self.spawn_time >= self.lifetime:
+            self.kill()  # Remove the sprite from all groups
