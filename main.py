@@ -30,7 +30,7 @@ beatTimes = extractBeats(path)
 pygame.init()
 pygame.mixer.init()
 
-WIDTH, HEIGHT, SPRITES = constants.WIDTH, constants.HEIGHT, constants.SPRITES
+WIDTH, HEIGHT, SPRITES, PLAYER1_POS, PLAYER2_POS = constants.WIDTH, constants.HEIGHT, constants.SPRITES, constants.PLAYER1_POS, constants.PLAYER2_POS
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN | pygame.SCALED)
 
@@ -79,14 +79,14 @@ playerTexturesRed = ch.CharacterTextures(
 
 player1 = ch.Player(
     textures=playerTexturesBlue,
-    position=Vector2(WIDTH * 0.2, HEIGHT * 0.35),
+    position=PLAYER1_POS,
     scale=0.4,
     first=True
 )
 
 player2 = ch.Player(
     textures=playerTexturesRed,
-    position=Vector2(WIDTH * 0.8, HEIGHT * 0.35),
+    position=PLAYER2_POS,
     scale=0.4,
     first=False
 )
@@ -112,7 +112,6 @@ def showResult():
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_q:
                 exit(0)
-
 
 def mainGame():
     screen.blit(bg, (0, 0))

@@ -63,7 +63,7 @@ class Combos:
         player = self.player1 if isPlayer1 else self.player2
 
         print("fernet")
-        player.setTexture(player.textures.combo_fernet)
+        player.setTimedTexture(player.textures.combo_fernet, 500.0)
 
 
     def indians(self,isPlayer1):
@@ -82,14 +82,19 @@ class Combos:
         print("jarmilka")
         constants.jarmilka_moan.play()
         jarmilkaPos = ()
+        curtainPos = ()
         if isPlayer1:
             jarmilkaPos = pygame.Vector2(constants.WIDTH*0.3, constants.HEIGHT*0.35),
+            curtainPos = constants.PLAYER1_POS
             self.player1.health += 10
         else:
             jarmilkaPos = pygame.Vector2(constants.WIDTH*0.7, constants.HEIGHT*0.35),
+            curtainPos = constants.PLAYER2_POS
             self.player2.health += 10
-        jarmilka = TimedSprite(jarmilkaPos, 1000, "assets/jarmilka.png",lambda x:self.aPass(), scale=0.3)
+        curtain = TimedSprite(curtainPos, 700, "assets/zaclony.png",lambda x:self.aPass(), scale=0.5)
+        jarmilka = TimedSprite(jarmilkaPos, 1100, "assets/jarmilka.png",lambda x:self.aPass(), scale=0.3)
         constants.SPRITES.add(jarmilka)
+        constants.SPRITES.add(curtain)
         
     def shoot(self,isPlayer1):
         print("shooting")

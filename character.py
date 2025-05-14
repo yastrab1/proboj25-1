@@ -5,17 +5,16 @@ class CharacterTextures:
         self.deault = default
         self.attack_default = attack_default
         self.combo_fernet = combo_fernet
-        self.shoot = shoot
-        self.machineGun = machineGun
-        self.snipe = snipe
-        self.beer = beer
         
 
 class Character(pg.sprite.Sprite):
     def __init__(self, textures : CharacterTextures, position : pg.Vector2, scale = 1.0):
         super().__init__()
         self.textures = textures
+        self.changeTime = 0
         self.scale = scale
+        self.hasSetTimedTexture = False
+        self.textureResetTime = 0
         self.image = pg.transform.scale_by(pg.image.load(self.textures.deault).convert_alpha(), scale)
         self.rect = self.image.get_rect(center=position)
 
@@ -24,13 +23,27 @@ class Character(pg.sprite.Sprite):
         
     def resetTexture(self):
         self.image = pg.transform.scale_by(pg.image.load(self.textures.deault).convert_alpha(), self.scale)
+        self.hasSetTimedTexture = True
+
+    def setTimedTexture(self, texture, time=1.0):
+        self.image = pg.transform.scale_by(pg.image.load(texture).convert_alpha(), self.scale)
+        self.hasSetTimedTexture = True
+        self.changeTime = time
+        self.textureResetTime = pg.time.get_ticks()
+
+
+    def update(self):
+        current_time = pg.time.get_ticks()
+        if current_time - self.textureResetTime >= self.changeTime and self.hasSetTimedTexture:
+            self.resetTexture()
+
 
 class Player(Character):
     def __init__(self, textures : CharacterTextures,position:pg.Vector2,scale = 1.0,first:bool = True):
         super().__init__(textures,position,scale)
         self.health=100
         self.shortTermDMGScale = 1
-        
+
     def update(self):
         pass
 
