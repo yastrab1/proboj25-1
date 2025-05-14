@@ -27,8 +27,12 @@ class SimpleApp:
         submit_button.pack(pady=5)
 
         # Custom button
-        custom_button = tk.Button(self.root, text="Use brano mojsej", command=self.use_brano_mojsej)
-        custom_button.pack(pady=5)
+        mojsej = tk.Button(self.root, text="Use brano mojsej", command=self.use_custom("./songs/Fernet Cez Internet [AlGVdv7uD98].mp3"))
+        axelf = tk.Button(self.root, text="Use axel f", command=self.use_custom("https://www.youtube.com/watch?v=k85mRPqvMbE"))
+        rasputin = tk.Button(self.root, text="Use rasputin", command=self.use_custom("https://www.youtube.com/watch?v=16y1AkoZkmQ"))
+        mojsej.pack(pady=0)
+        axelf.pack(pady=0)
+        rasputin.pack(pady=0)
 
         # Start the event loop
         self.root.mainloop()
@@ -40,6 +44,8 @@ class SimpleApp:
         self.user_input = self.entry.get()
         self.root.destroy()
 
-    def use_brano_mojsej(self):
-        self.user_input = "./songs/Fernet Cez Internet [AlGVdv7uD98].mp3"
-        self.root.destroy()
+    def use_custom(self,link):
+        def internal():
+            self.user_input = link
+            self.root.destroy()
+        return internal

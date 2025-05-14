@@ -1,6 +1,7 @@
 import random
 
 import pygame
+from numba.np.arrayobj import constant_array
 from numpy.ma.core import anomalies
 
 import constants
@@ -16,8 +17,8 @@ class ComboManager:
         self.allowedP2Keys = ["left", "right", "up", "down", "page down", "page up"]
         self.comboObj = combos
         self.combos = {
-            'qwe': combos.beer,
-            'leftdownright': combos.beer,
+            'asw': combos.beer,
+            'leftdownup': combos.beer,
             'qe': combos.shoot,
             'page uppage down': combos.shoot,
             'qwedsa': combos.indians,
@@ -30,7 +31,11 @@ class ComboManager:
             'leftleftleftleftupup': combos.jarmilka,
             'eee': combos.callTrainManager,
             'page downpage downpage down': combos.callTrainManager,
+            'ddd':combos.barrel,
+            'rightrightright': combos.barrel,
         }
+        self.chargingTrainp1 = False
+        self.chargingTrainp2 = False
 
     def registerEvent(self, keyCode: int, currentTime):
         foundComboP1 = False
@@ -57,8 +62,8 @@ class ComboManager:
         keyStringP1 = "".join(list(map(pygame.key.name, self.keysP1)))
         keyStringP2 = "".join(list(map(pygame.key.name, self.keysP2)))
 
-        self.checkTrain(keyStringP1)
-        self.checkTrain(keyStringP2)
+        self.checkTrain(keyStringP1,True)
+        self.checkTrain(keyStringP2,False)
         print(keyStringP1)
         if keyStringP1 in self.combos.keys():
             self.combos[keyStringP1](True)
@@ -82,26 +87,44 @@ class ComboManager:
             self.breakCombo(False)
 
 
-    def checkTrain(self, keyString):
-        keyCombination = ""
-        if len(keyString) >= constants.TRAIN_MUSIC_THRESHOLD:
+    def checkTrain(self, keyCodes, isPlayer1):
+        trainKeySequence = []
+        pressedKeys = "".join(self.getKeyString(keyCodes))
+        if len(keyCodes) >= constants.TRAIN_MUSIC_THRESHOLD:
             for keys, callback in self.combos.items():
                 if callback == self.comboObj.train:
-                    keyCombination = keys
-            if keyCombination.startswith(keyString):
-                if len(keyString) == constants.TRAIN_MUSIC_THRESHOLD:
+                    trainKeySequence.append(keys)
+        for sequence in trainKeySequence:
+            if sequence.startswith(pressedKeys):
+                if len(pressedKeys) == constants.TRAIN_MUSIC_THRESHOLD:
                     pygame.mixer.music.set_volume(0.1)
+                    print("playing vlak")
                     pygame.mixer.pause()
                     pygame.mixer.music.load("./songs/Horkýže Slíže - Vlak [oficiálne audio] [EVTLWqCjgeE].mp3")
                     pygame.mixer.music.play()
+                    if isPlayer1:
+                        self.chargingTrainp1 = True
+                    else:
+                        self.chargingTrainp2 = True
                 else:
-                    pygame.mixer.music.set_volume(((len(keyString) - constants.TRAIN_MUSIC_THRESHOLD) * 40 + 10) / 100)
+                    pygame.mixer.music.set_volume(((len(pressedKeys) - constants.TRAIN_MUSIC_THRESHOLD) * 40 + 10) / 100)
 
     def breakCombo(self, first: bool):
         if first:
             self.keysP1 = []
+            if self.chargingTrainp1:
+                pygame.mixer.stop()
+                print(constants.AUDIO_PATH)
+                pygame.mixer.music.load(constants.AUDIO_PATH)
+                pygame.mixer.music.play()
+            self.chargingTrainp1 = False
         else:
             self.keysP2 = []
+            if self.chargingTrainp1:
+                pygame.mixer.stop()
+                pygame.mixer.music.load(constants.AUDIO_PATH)
+                pygame.mixer.music.play()
+            self.chargingTrainp2 = False
 
 
 class Combos:
