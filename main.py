@@ -74,7 +74,7 @@ SPRITES.add(player2)
 # Main loop
 running = True
 
-combo = ComboManager(beatTimes,Combos(player1))
+combo = ComboManager(beatTimes,Combos(player1,player2))
 
 while running:
     screen.blit(bg, (0, 0))
