@@ -21,10 +21,12 @@ class ComboManager:
             'up': combos.beer,
             's': combos.indians,
             'down': combos.indians,
-            'a': combos.jarmilka,
-            'left': combos.jarmilka,
-            'd': combos.shoot,
-            'right': combos.shoot
+            # 'a': combos.jarmilka,
+            # 'left': combos.jarmilka,
+            # 'd': combos.shoot,
+            # 'right': combos.shoot,
+            'da':combos.snipe,
+            'rightleft':combos.snipe,
         }
 
     def registerEvent(self, keyCode: int, currentTime):
@@ -156,7 +158,7 @@ class Combos:
     def snipe(self, isPlayer1):
         player = self.player1 if isPlayer1 else self.player2
         otherPlayer = self.player2 if isPlayer1 else self.player1
-        player.setTexture(player.textures.shoot)
+        player.setTimedTexture(player.textures.snipe,1000)
         otherPlayer.dealDamage(constants.BULLET_DMG)
         #TODO animate bullet
 
