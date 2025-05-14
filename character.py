@@ -5,3 +5,5 @@ class Character(pg.sprite.Sprite):
         super().__init__()
         self.image = pg.image.load(image_path).convert_alpha()
         self.rect = self.image.get_rect(topleft=position)
+        
+    
