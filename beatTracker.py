@@ -32,7 +32,6 @@ lineTop = y-100
 def renderTracker(screen, beatTimes, currentTime,bpm):
     BEAT_LINE_X = constants.WIDTH / 2
     closestBeat = calculateClosest(beatTimes,currentTime)
-    print(closestBeat)
     scale = beat_pulse_scale(closestBeat)*20
     for beat in beatTimes:
         dt = beat - currentTime

@@ -131,8 +131,8 @@ def mainGame():
     SPRITES.draw(screen)
     combo1Surf = font.render("combo p1: " + "".join(combo.getKeyString(True)), True, constants.WHITE)
     combo2Surf = font.render("combo p2: " + "".join(combo.getKeyString(False)), True, constants.WHITE)
-    screen.blit(combo1Surf, (constants.firstBarStartX, constants.barY-50))
-    screen.blit(combo2Surf, (constants.secondBarStartX, constants.barY-50))
+    screen.blit(combo1Surf, (constants.firstBarStartX+200, constants.barY-50))
+    screen.blit(combo2Surf, (constants.secondBarStartX-500, constants.barY-50))
     return True
 
 
