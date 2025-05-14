@@ -1,6 +1,7 @@
 import pygame
 
 import constants
+from character import Character
 
 
 class ComboManager:
@@ -8,7 +9,7 @@ class ComboManager:
         self.keys = []
         self.beatTimes = beatTimes
         self.combos = {
-            'fernet': lambda: print("FERNET!!")
+            'f': combos.fernet
         }
 
     def registerEvent(self, keyCode: int, currentTime):
@@ -33,9 +34,10 @@ class ComboManager:
         return str(list(map(pygame.key.name, self.keys)))
 
 class Combos:
-    def __init__(self,character):
+    def __init__(self,character:Character):
         self.character = character
 
     def fernet(self):
         print("fernet")
-        self.character.image =
+        self.character.setTexture(self.character.textures.combo_fernet)
+

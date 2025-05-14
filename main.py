@@ -5,7 +5,7 @@ import character as ch
 import constants
 from beat import extractBeats
 from beatTracker import renderTracker
-from combo import ComboManager
+from combo import ComboManager, Combos
 
 # --- Audio analysis (before starting pygame) ---
 AUDIO_PATH = './songs/Fernet Cez Internet [AlGVdv7uD98].mp3'
@@ -40,7 +40,8 @@ pressedBeat = -100
 all_sprites = pygame.sprite.Group()
 
 playerTextures = ch.CharacterTextures(
-    default="assets/img.png"
+    default="assets/img.png",
+    combo_fernet="assets/fernet.png"
 )
 
 player = ch.Character(
@@ -54,7 +55,7 @@ all_sprites.add(player)
 # Main loop
 running = True
 
-combo = ComboManager(beatTimes)
+combo = ComboManager(beatTimes,Combos(player))
 
 while running:
     screen.fill(constants.BLACK)
