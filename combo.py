@@ -48,6 +48,10 @@ class ComboManager:
                 self.matchCombos()
                 return
         renderBigText("OFFBEAT!")
+        if pygame.key.name(keyCode) in self.allowedP1Keys:
+            self.breakCombo(True)
+        elif pygame.key.name(keyCode) in self.allowedP2Keys:
+            self.breakCombo(False)
             
 
     def getKeyString(self, isPlayer1):
