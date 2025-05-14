@@ -3,7 +3,6 @@ from numpy.ma.core import anomalies
 
 import constants
 from character import Character, CharacterTextures, TimedSprite
-from constants import WIDTH
 
 
 class ComboManager:
