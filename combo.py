@@ -1,3 +1,5 @@
+import pygame
+
 import constants
 
 
@@ -17,4 +19,4 @@ class ComboManager:
         self.keys = []
 
     def __str__(self):
-        return str(self.keys)
+        return str(list(map(pygame.key.name,self.keys)))
