@@ -34,8 +34,6 @@ class ComboManager:
         keyStringP1 = "".join(list(map(pygame.key.name, self.keysP1)))
         keyStringP2 = "".join(list(map(pygame.key.name, self.keysP2)))
         print(keyStringP1)
-        print(keyStringP2)
-        print(self.combos.keys())
         if keyStringP1 in self.combos.keys():
             self.combos[keyStringP1](True)
             self.breakCombo(True)

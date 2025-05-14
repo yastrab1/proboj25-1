@@ -1,6 +1,7 @@
 import pygame
 import time
 import threading
+import platform
 
 from pygame import Vector2
 import tkinter as tk
@@ -13,9 +14,15 @@ from healthbar import renderHealthBar
 from linkDialog import SimpleApp
 
 # Usage
-app = SimpleApp()
-path = app.run()
+os_name = platform.system()
+path = ""
+app = {}
 
+if os_name == "Windows":
+    app = SimpleApp()
+    path = app.run()
+elif os_name == "Darwin":
+    path = "./songs/Fernet Cez Internet [AlGVdv7uD98].mp3"
 
 beatTimes = extractBeats(path)
 
