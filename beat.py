@@ -33,4 +33,4 @@ def extractBeats(path):
     print(path)
     y,sr = librosa.load(path)
     tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
-    return librosa.frames_to_time(beat_frames, sr=sr)
+    return librosa.frames_to_time(beat_frames, sr=sr),tempo

@@ -25,7 +25,7 @@ if os_name == "Windows":
 elif os_name == "Darwin":
     path = "./songs/Fernet Cez Internet [AlGVdv7uD98].mp3"
 
-beatTimes = extractBeats(path)
+beatTimes,bpm = extractBeats(path)
 
 pygame.init()
 pygame.mixer.init()
@@ -96,7 +96,7 @@ SPRITES.add(player2)
 
 running = True
 
-combo = ComboManager(beatTimes, Combos(player1, player2))
+combo = ComboManager(beatTimes, Combos(player1, player2,path))
 
 
 def showResult():
@@ -121,14 +121,17 @@ def mainGame():
     current_time = time.time() - start_time if start_time else 0
     renderHealthBar(screen, player1.health, player2.health)
     SPRITES.update()
-    renderTracker(screen, beatTimes, current_time)
+    renderTracker(screen, beatTimes, current_time,bpm)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return False
         if event.type == pygame.KEYUP:
             combo.registerEvent(event.key, current_time)
     SPRITES.draw(screen)
-    screen.blit(font.render("combo: " + str(combo), True, constants.WHITE), (WIDTH // 2, HEIGHT // 2))
+    combo1Surf = font.render("combo p1: " + "".join(combo.getKeyString(True)), True, constants.WHITE)
+    combo2Surf = font.render("combo p2: " + "".join(combo.getKeyString(False)), True, constants.WHITE)
+    screen.blit(combo1Surf, (constants.firstBarStartX, constants.barY-50))
+    screen.blit(combo2Surf, (constants.secondBarStartX, constants.barY-50))
     return True
 
 
