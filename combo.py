@@ -74,9 +74,9 @@ class Combos:
         indians = TimedSprite(indianPos, 1000, "assets/indiani.png", lambda x:self.moveOnScreen(x, isPlayer1))
         constants.SPRITES.add(indians)
         if (isPlayer1):
-            self.player2.health -= 50
+            self.player2.dealDamage(50)
         else:
-            self.player1.health -= 50
+            self.player1.dealDamage(50)
 
 
     def jarmilka(self, isPlayer1):
@@ -87,11 +87,11 @@ class Combos:
         if isPlayer1:
             jarmilkaPos = pygame.Vector2(constants.WIDTH*0.3, constants.HEIGHT*0.35),
             curtainPos = constants.PLAYER1_POS
-            self.player1.health += 30
+            self.player1.increaseHealth(constants.BEER_HEAL*3)
         else:
             jarmilkaPos = pygame.Vector2(constants.WIDTH*0.7, constants.HEIGHT*0.35),
             curtainPos = constants.PLAYER2_POS
-            self.player2.health += 30
+            self.player2.increaseHealth(constants.BEER_HEAL*3)
         curtain = TimedSprite(curtainPos, 700, "assets/zaclony.png",lambda x:self.aPass(), scale=0.5)
         jarmilka = TimedSprite(jarmilkaPos, 1100, "assets/jarmilka.png",lambda x:self.aPass(), scale=0.3)
         constants.SPRITES.add(jarmilka)
@@ -104,21 +104,21 @@ class Combos:
         player = self.player1 if isPlayer1 else self.player2
         otherPlayer = self.player2 if isPlayer1 else self.player1
         player.setTexture(player.textures.shoot)
-        otherPlayer.health -= constants.BULLET_DMG
+        otherPlayer.dealDamage(constants.BULLET_DMG)
         #TODO animate bullet
     def snipe(self,isPlayer1):
         print("sniping")
         player = self.player1 if isPlayer1 else self.player2
         otherPlayer = self.player2 if isPlayer1 else self.player1
         player.setTexture(player.textures.snipe)
-        otherPlayer.health -= constants.BULLET_DMG
+        otherPlayer.dealDamage(constants.BULLET_DMG)
         #TODO animate bullet
 
     def beer(self,isPlayer1):
         print("beer")
         player = self.player1 if isPlayer1 else self.player2
         player.setTimedTexture(player.textures.beer, 200)
-        player.health += constants.BEER_HEAL
+        player.increaseHealth(constants.BEER_HEAL)
         print(player.health)
 
 
@@ -128,7 +128,7 @@ class Combos:
         otherPlayer = self.player2 if isPlayer1 else self.player1
 
         player.setTexture(player.textures.machineGun)
-        otherPlayer.health -= constants.MACHINE_DMG
+        player.dealDamage(constants.MACHINE_DMG)
 
     def smoke(self,isPlayer1):
         print("smoke")
@@ -147,9 +147,9 @@ class Combos:
         indians = TimedSprite(indianPos, 1000, "assets/indiani.png", lambda x:self.moveOnScreen(x, isPlayer1))
         constants.SPRITES.add(indians)
         if (isPlayer1):
-            self.player2.health -= 50
+            self.player2.dealDamage(50)
         else:
-            self.player1.health -= 50
+            self.player1.dealDamage(50)
 
     #animations
     def moveOnScreen(self, sprite:TimedSprite, isPlayer1):

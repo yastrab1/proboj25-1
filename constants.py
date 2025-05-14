@@ -10,7 +10,7 @@ BLUE = (0, 0, 255)
 
 COMBO_TOLERANCY = 0.4
 
-MAX_HEALTH = 100
+MAX_HEALTH = 400
 BULLET_DMG = 5
 MACHINE_DMG = 15
 BEER_HEAL = 10
@@ -24,3 +24,6 @@ PLAYER2_POS  = pygame.Vector2(WIDTH*0.8, HEIGHT*0.35)
 
 indians = pygame.mixer.Sound("assets/sounds/indian_attack.mp3")  # Supported formats: WAV, OGG, MP3
 jarmilka_moan = pygame.mixer.Sound("assets/sounds/jarmilka.mp3")
+
+def clamp(value, min, max):
+    return min if value < min else (max if value > max else (value))
