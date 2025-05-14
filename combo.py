@@ -2,7 +2,7 @@ import pygame
 from numpy.ma.core import anomalies
 
 import constants
-from character import Character, CharacterTextures, TimedSprite
+from character import Character, CharacterTextures, TimedSprite, Player
 
 
 class ComboManager:
@@ -37,7 +37,7 @@ class ComboManager:
 
 
 class Combos:
-    def __init__(self, player1,player2):
+    def __init__(self, player1:Player,player2:Player):
         self.player1 = player1
         self.player2 = player2
 
@@ -58,6 +58,10 @@ class Combos:
             indians = TimedSprite(indianPos, 1000, "assets/indiani.png",lambda x:self.animateIndians(x,isPlayer1))
             indiansSpawnTime = pygame.time.get_ticks()
             constants.SPRITES.add(indians)
+            if (isPlayer1):
+                self.player2.health -= 50
+            else:
+                self.player1.health -= 50
         return internal
 
     def animateIndians(self,sprite:TimedSprite,isPlayer1):
