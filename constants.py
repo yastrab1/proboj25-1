@@ -11,3 +11,5 @@ BLUE = (0, 0, 255)
 COMBO_TOLERANCY = 0.4
 
 MAX_HEALTH = 100
+
+SPRITES = pygame.sprite.Group()

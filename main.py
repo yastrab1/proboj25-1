@@ -17,7 +17,7 @@ AUDIO_PATH = './songs/Fernet Cez Internet [AlGVdv7uD98].mp3'
 beatTimes = extractBeats(AUDIO_PATH)
 
 pygame.init()
-WIDTH, HEIGHT = constants.WIDTH, constants.HEIGHT
+WIDTH, HEIGHT, SPRITES = constants.WIDTH, constants.HEIGHT, constants.SPRITES
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 bg = pygame.image.load("./assets/bg.png").convert()
@@ -43,8 +43,6 @@ threading.Thread(target=play_music).start()
 points = 0
 pressedBeat = -100
 
-all_sprites = pygame.sprite.Group()
-
 playerTexturesBlue = ch.CharacterTextures(
     default="assets/player1.png",
     combo_fernet="assets/fernet.png"
@@ -68,8 +66,8 @@ player2 = ch.Player(
     first=False
 )
 
-all_sprites.add(player1)
-all_sprites.add(player2)
+SPRITES.add(player1)
+SPRITES.add(player2)
 
 # Main loop
 running = True
@@ -81,7 +79,9 @@ while running:
     current_time = time.time() - start_time if start_time else 0
 
     renderHealthBar(screen,100,50)
+    SPRITES.update()
     renderTracker(screen,beatTimes,current_time)
+    SPRITES.update()
     # Event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -89,7 +89,7 @@ while running:
         if event.type == pygame.KEYUP:
             combo.registerEvent(event.key, current_time)
 
-    all_sprites.draw(screen)
+    SPRITES.draw(screen)
 
     screen.blit(font.render("combo: " + str(combo), True, constants.WHITE), (WIDTH // 2, HEIGHT // 2))
     pygame.display.flip()

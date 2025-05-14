@@ -1,7 +1,8 @@
 import pygame
+from numpy.ma.core import anomalies
 
 import constants
-from character import Character
+from character import Character, CharacterTextures, TimedSprite
 
 
 class ComboManager:
@@ -42,9 +43,18 @@ class Combos:
     def fernet(self):
         print("fernet")
         self.character.setTexture(self.character.textures.combo_fernet)
-        
-    def indians(self):
-        print("indiani")
 
     def normal(self):
         self.character.setTexture(self.character.textures.deault)
+
+
+    def indians(self):
+        print("indiani")
+        prechod = pygame.sprite.Sprite()
+        indianPos = (0,500)
+        indians = TimedSprite(indianPos, 1000, "assets/indiani.png",self.animateIndians)
+        indiansSpawnTime = pygame.time.get_ticks()
+        constants.SPRITES.add(indians)
+
+    def animateIndians(self,sprite:TimedSprite):
+        sprite.rect = sprite.rect.move(20,0)
