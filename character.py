@@ -11,8 +11,12 @@ class Character(pg.sprite.Sprite):
     def __init__(self, textures : CharacterTextures, position : pg.Vector2, scale = 1.0):
         super().__init__()
         self.textures = textures
+        self.scale = scale
         self.image = pg.transform.scale_by(pg.image.load(self.textures.deault).convert_alpha(), scale)
         self.rect = self.image.get_rect(topleft=position)
         
     def setTexture(self,texture):
-        self.image = pg.image.load(texture).convert_alpha()
+        self.image = pg.transform.scale_by(pg.image.load(texture).convert_alpha(), self.scale)
+        
+    def resetTexture(self):
+        self.image = pg.transform.scale_by(pg.image.load(self.textures.deault).convert_alpha(), self.scale)
