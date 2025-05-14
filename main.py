@@ -95,8 +95,9 @@ SPRITES.add(player1)
 SPRITES.add(player2)
 
 running = True
-
-combo = ComboManager(beatTimes, Combos(player1, player2,path))
+combos = Combos(player1, player2,path)
+combo = ComboManager(beatTimes, combos)
+combos.comboManager = combo
 
 
 def showResult():

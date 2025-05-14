@@ -5,9 +5,9 @@ class CharacterTextures:
     def __init__(self, default, attack_default = None, combo_fernet = None, shoot = None, machineGun = None,snipe = None,beer=None):
         self.deault = default
         self.attack_default = attack_default
-        self.shoot=shoot,
-        self.machineGun=machineGun,
-        self.snipe=snipe,
+        self.shoot=shoot
+        self.machineGun=machineGun
+        self.snipe=snipe
         self.beer=beer
         
 
@@ -30,6 +30,7 @@ class Character(pg.sprite.Sprite):
         self.hasSetTimedTexture = True
 
     def setTimedTexture(self, texture, time=1.0):
+        print(texture)
         self.image = pg.transform.scale_by(pg.image.load(texture).convert_alpha(), self.scale)
         self.hasSetTimedTexture = True
         self.changeTime = time
