@@ -3,6 +3,7 @@ import librosa
 import numpy as np
 import time
 import threading
+import character as ch
 
 # --- Audio analysis (before starting pygame) ---
 AUDIO_PATH = './songs/Fernet Cez Internet [AlGVdv7uD98].mp3'
@@ -46,6 +47,12 @@ def play_music():
 threading.Thread(target=play_music).start()
 points = 0
 pressedBeat = -100
+
+all_sprites = pygame.sprite.Group()
+
+player = ch.Character("player_image.png", (100, 100))
+all_sprites.add(player)
+
 # Main loop
 running = True
 while running:
