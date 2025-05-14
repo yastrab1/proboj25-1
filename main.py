@@ -35,15 +35,17 @@ pygame.mixer.music.load(AUDIO_PATH)
 # Shared start time variable
 start_time = -1
 
+
 # Start music in a thread (to avoid blocking)
 def play_music():
     global start_time
     pygame.mixer.music.play()
     start_time = time.time()
 
+
 threading.Thread(target=play_music).start()
 points = 0
-pressedBeat = False
+pressedBeat = -100
 # Main loop
 running = True
 while running:
@@ -60,16 +62,17 @@ while running:
             # Linearly map dt to screen position
             x = int(BEAT_LINE_X + (dt - 1) * 300)  # dt=1 => start edge, dt=0 => beat line
             pygame.draw.circle(screen, RED, (x, HEIGHT // 2), 10)
-        if pressedBeat:
-            if -0.5 <dt < 0.5:
-                points += 1
-            pressedBeat=False
+        if -0.2 < pressedBeat - beat < 0.2:
+            points += 1
+            pressedBeat = -100
+    if pressedBeat - current_time > 0.4:
+        pressedBeat = -100
     # Event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYUP:
-            pressedBeat = True
+            pressedBeat = current_time
             print("Pressed Beat")
     screen.blit(font.render("Points: " + str(points), True, WHITE), (WIDTH // 2, HEIGHT // 2))
     pygame.display.flip()
