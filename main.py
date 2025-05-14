@@ -17,6 +17,8 @@ AUDIO_PATH = './songs/Fernet Cez Internet [AlGVdv7uD98].mp3'
 beatTimes = extractBeats(AUDIO_PATH)
 
 pygame.init()
+pygame.mixer.init()
+
 WIDTH, HEIGHT, SPRITES = constants.WIDTH, constants.HEIGHT, constants.SPRITES
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))

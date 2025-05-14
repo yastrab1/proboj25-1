@@ -1,4 +1,4 @@
-import pygame.display
+import pygame
 pygame.init()
 _info = pygame.display.Info()
 WIDTH, HEIGHT = _info.current_w, _info.current_h
@@ -13,3 +13,7 @@ COMBO_TOLERANCY = 0.4
 MAX_HEALTH = 100
 
 SPRITES = pygame.sprite.Group()
+
+#Sound Effects
+
+indians = pygame.mixer.Sound("assets/sounds/indian_attack.mp3")  # Supported formats: WAV, OGG, MP3

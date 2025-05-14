@@ -53,6 +53,7 @@ class Combos:
         print("indiani")
         prechod = pygame.sprite.Sprite()
         indianPos = (0,0)
+        constants.indians.play()
         indians = TimedSprite(indianPos, 100, "assets/indiani.png")
         indiansSpawnTime = pygame.time.get_ticks()
         constants.SPRITES.add(indians)
