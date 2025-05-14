@@ -18,7 +18,7 @@ class ComboManager:
             'w': combos.beer,
             'up': combos.beer,
             's': combos.indians,
-            'up': combos.indians,
+            'down': combos.indians,
             'a': combos.jarmilka,
             'left': combos.jarmilka
         }
@@ -66,12 +66,6 @@ class Combos:
         print("fernet")
         player.setTimedTexture(player.textures.combo_fernet, 500.0)
         
-    def beer(self, isPlayer1):
-        player = self.player1 if isPlayer1 else self.player2
-
-        print("pivo")
-        player.setTimedTexture(player.textures.pije_pivo, 200.0)
-        player.health += 10
 
     def indians(self,isPlayer1):
         print("indiani")
@@ -123,8 +117,9 @@ class Combos:
     def beer(self,isPlayer1):
         print("beer")
         player = self.player1 if isPlayer1 else self.player2
-        player.setTexture(player.textures.beer)
+        player.setTimedTexture(player.textures.beer, 200)
         player.health += constants.BEER_HEAL
+        print(player.health)
 
 
     def machineGun(self,isPlayer1):

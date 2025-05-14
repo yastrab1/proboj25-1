@@ -47,9 +47,6 @@ class Player(Character):
         self.health=100
         self.shortTermDMGScale = 1
 
-    def update(self):
-        pass
-
     def dealDamage(self, damage):
         self.health -= damage*self.shortTermDMGScale
         self.shortTermDMGScale = 1
