@@ -1,5 +1,5 @@
 import pygame as pg
-from constants import clamp
+from constants import clamp, MAX_HEALTH
 
 class CharacterTextures:
     def __init__(self, default, attack_default = None, combo_fernet = None, shoot = None, machineGun = None,snipe = None,beer=None):
@@ -50,11 +50,11 @@ class Player(Character):
         self.shortTermDMGScale = 1
 
     def dealDamage(self, damage):
-        self.health = clamp(self.health - damage*self.shortTermDMGScale, 0, 400)
+        self.health = clamp(self.health - damage*self.shortTermDMGScale, 0, MAX_HEALTH)
         self.shortTermDMGScale = 1
         
     def increaseHealth(self, amount):
-        self.health = clamp(self.health + amount, 0, 400)
+        self.health = clamp(self.health + amount, 0, MAX_HEALTH)
         
 class TimedSprite(pg.sprite.Sprite):
     def __init__(self, position, lifetime_ms, image,func, scale =1.0):
