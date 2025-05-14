@@ -14,10 +14,10 @@ from linkDialog import SimpleApp
 
 # Usage
 app = SimpleApp()
-link = app.run()
+path = app.run()
 
-AUDIO_PATH = downloadYTMusic(link)
-beatTimes = extractBeats(AUDIO_PATH)
+
+beatTimes = extractBeats(path)
 
 pygame.init()
 pygame.mixer.init()
@@ -34,7 +34,7 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont("arial", 30)  # font name, size
 
 pygame.mixer.init()
-pygame.mixer.music.load(AUDIO_PATH)
+pygame.mixer.music.load(path)
 
 start_time = -1
 
