@@ -12,6 +12,7 @@ class ComboManager:
         self.combos = {
             'f': combos.fernet(True),
             'b': combos.indians(True),
+            'l': combos.indians(False)
         }
 
     def registerEvent(self, keyCode: int, currentTime):
