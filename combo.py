@@ -16,18 +16,20 @@ class ComboManager:
         self.allowedP2Keys = ["left", "right", "up", "down", "page down", "page up"]
         self.comboObj = combos
         self.combos = {
-            'ws': combos.beer,
-            'updown': combos.beer,
-            'qweasdqwe':combos.train,
-            
-            'sdasda': combos.indians,
-            'downrightleftdownrightleft': combos.indians,
-            'aaww': combos.jarmilka,
-            'leftleftupup': combos.jarmilka,
-            'dd': combos.shoot,
-            'rightright': combos.shoot,
-            'daad':combos.snipe,
-            'rightleftleftright':combos.snipe,
+            'qwe': combos.beer,
+            'leftdownright': combos.beer,
+            'qe': combos.shoot,
+            'page uppage down': combos.shoot,
+            'qwedsa': combos.indians,
+            'page upuppage downrightdownup': combos.indians,
+            'asdd':combos.machineGun,
+            'leftdownrightright':combos.machineGun,
+            'aassddwwqe': combos.train,
+            'leftleftdowndownrightrightupuppage uppage down': combos.train,
+            'aaaaww': combos.jarmilka,
+            'leftleftleftleftupup': combos.jarmilka,
+            'eee': combos.callTrainManager,
+            'page downpage downpage down': combos.callTrainManager,
         }
 
     def registerEvent(self, keyCode: int, currentTime):
@@ -37,10 +39,14 @@ class ComboManager:
             if abs(beat - currentTime) < constants.COMBO_TOLERANCY / 2:
                 if pygame.key.name(keyCode) in self.allowedP1Keys:
                     self.keysP1.append(keyCode)
-                else:
+                elif pygame.key.name(keyCode) in self.allowedP2Keys:
                     self.keysP2.append(keyCode)
                 self.matchCombos()
                 return
+        if not foundComboP1:
+            self.breakCombo(True)
+        if not foundComboP2:
+            self.breakCombo(False)
             
 
     def getKeyString(self, isPlayer1):
@@ -152,6 +158,7 @@ class Combos:
         otherPlayer = self.player2 if isPlayer1 else self.player1
         player.setTimedTexture(player.textures.shoot, 500)
         otherPlayer.dealDamage(constants.BULLET_DMG)
+        constants.beng.play()
         # TODO animate bullet
 
     def snipe(self, isPlayer1):
@@ -159,6 +166,7 @@ class Combos:
         otherPlayer = self.player2 if isPlayer1 else self.player1
         player.setTimedTexture(player.textures.snipe,1000)
         otherPlayer.dealDamage(constants.BULLET_DMG)
+        constants.beng.play()
         #TODO animate bullet
 
 
@@ -176,6 +184,7 @@ class Combos:
 
         player.setTimedTexture(player.textures.machineGun,1000)
         otherPlayer.health -= constants.MACHINE_DMG
+        constants.bengLong.play()
 
     def smoke(self, isPlayer1):
         print("smoke")
@@ -195,8 +204,15 @@ class Combos:
         pygame.mixer.music.play()
 
     def callTrainManager(self,isPlayer1):
+        player = self.player1 if isPlayer1 else self.player2
+        player.setTimedTexture(player.textures.trainManager,1000)
+
         self.comboManager.breakCombo(not isPlayer1)
 
+    def barrel(self,isPlayer1):
+        print("barrel")
+        player = self.player1 if isPlayer1 else self.player2
+        player.addBarrel()
     # animations
     def moveOnScreen(self, sprite: TimedSprite, isPlayer1):
         sprite.rect = sprite.rect.move(20 if isPlayer1 else -20, 0)

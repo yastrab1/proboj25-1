@@ -1,14 +1,19 @@
 import pygame as pg
-from constants import clamp, MAX_HEALTH
+import pygame.image
+
+import constants
+from constants import clamp, MAX_HEALTH, BARREL1Pos, BARREL2Pos
+
 
 class CharacterTextures:
-    def __init__(self, default, attack_default = None, combo_fernet = None, shoot = None, machineGun = None,snipe = None,beer=None):
+    def __init__(self, default, attack_default = None, combo_fernet = None, shoot = None, machineGun = None,snipe = None,beer=None,trainManager=None):
         self.deault = default
         self.attack_default = attack_default
         self.shoot=shoot
         self.machineGun=machineGun
         self.snipe=snipe
         self.beer=beer
+        self.trainManager=trainManager
         
 
 class Character(pg.sprite.Sprite):
@@ -46,10 +51,23 @@ class Character(pg.sprite.Sprite):
 class Player(Character):
     def __init__(self, textures : CharacterTextures,position:pg.Vector2,scale = 1.0,first:bool = True):
         super().__init__(textures,position,scale)
+        self.barrelObj = None
         self.health=100
         self.shortTermDMGScale = 1
+        self.barrel = False
+        self.first = first
+
+    def addBarrel(self):
+        self.barrelObj = Barrel(self.first)
+        self.barrelObj.add(constants.SPRITES)
+    def removeBarrel(self):
+        self.barrelObj.kill()
 
     def dealDamage(self, damage):
+        if self.barrel:
+            self.barrel = False
+            self.removeBarrel()
+            return
         self.health = clamp(self.health - damage*self.shortTermDMGScale, 0, MAX_HEALTH)
         self.shortTermDMGScale = 1
         
@@ -70,3 +88,9 @@ class TimedSprite(pg.sprite.Sprite):
         self.func(self)
         if current_time - self.spawn_time >= self.lifetime:
             self.kill()  # Remove the sprite from all groups
+
+class Barrel(pg.sprite.Sprite):
+    def __init__(self,isPlayer1):
+        super().__init__()
+        self.image = pygame.image.load("assets/barrel.png")
+        self.rect = self.image.get_rect(center=BARREL1Pos if isPlayer1 else BARREL2Pos)
