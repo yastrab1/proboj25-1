@@ -45,7 +45,6 @@ class Combos:
         
     def indians(self):
         print("indiani")
-        
 
     def normal(self):
         self.character.setTexture(self.character.textures.deault)
