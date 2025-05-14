@@ -103,6 +103,7 @@ class Combos:
         self.player1 = player1
         self.player2 = player2
         self.bgAudioPath = bgAudioPath
+        self.comboManager=None
 
     def fernet(self, isPlayer1):
         player = self.player1 if isPlayer1 else self.player2
@@ -186,19 +187,21 @@ class Combos:
         otherPlayer = self.player2 if isPlayer1 else self.player1
 
         indianPos = (0 if isPlayer1 else constants.WIDTH, 500)
-        indians = TimedSprite(indianPos, 1000, "assets/train.png", lambda x: self.moveOnScreen(x, isPlayer1))
+        indians = TimedSprite(indianPos, 2000, "assets/train.png", lambda x: self.moveOnScreenTrain(x, isPlayer1,otherPlayer))
         constants.SPRITES.add(indians)
-        if (isPlayer1):
-            self.player2.dealDamage(constants.MAX_HEALTH)
-        else:
-            self.player1.dealDamage(constants.MAX_HEALTH)
         pygame.mixer.stop()
         pygame.mixer.music.load(self.bgAudioPath)
         pygame.mixer.music.play()
+
+    def callTrainManager(self,isPlayer1):
+        self.comboManager.breakCombo(not isPlayer1)
 
     # animations
     def moveOnScreen(self, sprite: TimedSprite, isPlayer1):
         sprite.rect = sprite.rect.move(20 if isPlayer1 else -20, 0)
 
+    def moveOnScreenTrain(self, sprite: TimedSprite, isPlayer1,targetPlayer):
+        sprite.rect = sprite.rect.move(20 if isPlayer1 else -20, 0)
+        targetPlayer.dealDamage(2)
     def aPass(self):
         pass

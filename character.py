@@ -30,6 +30,7 @@ class Character(pg.sprite.Sprite):
         self.hasSetTimedTexture = True
 
     def setTimedTexture(self, texture, time=1.0):
+        print(texture)
         self.image = pg.transform.scale_by(pg.image.load(texture).convert_alpha(), self.scale)
         self.hasSetTimedTexture = True
         self.changeTime = time

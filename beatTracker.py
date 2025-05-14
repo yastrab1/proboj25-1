@@ -23,7 +23,7 @@ def beat_pulse_scale(closeness, max_scale=2, min_scale=0.8, sharpness=50):
     - scale: float
     """
     # Use a Gaussian-like falloff centered at 0
-    scale = (max_scale - min_scale) * math.exp(-sharpness * closeness**2) + min_scale
+    scale = 1
     return scale
 
 
