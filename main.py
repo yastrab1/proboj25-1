@@ -101,7 +101,7 @@ combo = ComboManager(beatTimes, Combos(player1, player2,path))
 
 def showResult():
     screen.blit(bountyBoard, bountyBoard.get_rect(center=(WIDTH // 2, HEIGHT // 2)))
-    text = "Player 1 won!" if player2.health <= 0 else "Player 2 won!"
+    text = "Player 1 won!" if player2.health == 0 else "Player 2 won!"
     textSurface = bigFont.render(text, True, (255, 255, 255))
     screen.blit(textSurface, textSurface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50)))
     quitSurface = font.render("Press 'q' to quit", True, (255, 255, 255))

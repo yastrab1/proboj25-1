@@ -27,9 +27,9 @@ PLAYER2_POS = pygame.Vector2(WIDTH * 0.8, HEIGHT * 0.35)
 indians = pygame.mixer.Sound("assets/sounds/indian_attack.mp3")  # Supported formats: WAV, OGG, MP3
 jarmilka_moan = pygame.mixer.Sound("assets/sounds/jarmilka.mp3")
 firstBarStartX = 50
-secondBarStartX = WIDTH - 350
+secondBarStartX = WIDTH - 50
 barY = HEIGHT - 100
-barWidth = 300
+barWidth = 400
 barHeight = 20
 
 def clamp(value, min, max):
