@@ -14,7 +14,6 @@ class ComboManager:
             'b': combos.indians(True),
             'l': combos.indians(False)
         }
-
     def registerEvent(self, keyCode: int, currentTime):
         for beat in self.beatTimes:
             if abs(beat - currentTime) < constants.COMBO_TOLERANCY / 2:

@@ -1,4 +1,5 @@
 import os
+import random
 import tempfile
 
 import librosa
@@ -7,31 +8,29 @@ import yt_dlp
 
 # Step 1: Download audio to a temp file
 def downloadYTMusic(url):
-    with tempfile.NamedTemporaryFile(suffix='.m4a', delete=False) as tmp_file:
-        temp_audio_path = tmp_file.name
-
+    import tempfile
+    tempDir = tempfile.gettempdir()
+    pathName = random.randint(0,1000000)
+    temp_audio_path = tempDir + f"/{pathName}.%(ext)s"
     ydl_opts = {
-        'format': 'bestaudio/best',
         'outtmpl': temp_audio_path,
-        'quiet': True,
+        'format': 'bestaudio/best',
+        'quiet': False,
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'm4a',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
         }],
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
 
-    # Step 2: Load audio to numpy array
-    y, sr = librosa.load(temp_audio_path, sr=None)
 
-    # Cleanup
-    os.remove(temp_audio_path)
+    return tempDir+f"/{pathName}.mp3"
 
-    return y, sr
-
-def extractBeats(audio_path):
-    y, sr = librosa.load(audio_path)
+def extractBeats(path):
+    print(path)
+    y,sr = librosa.load(path)
     tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
     return librosa.frames_to_time(beat_frames, sr=sr)
