@@ -5,7 +5,6 @@ from numpy.ma.core import anomalies
 
 import constants
 from character import Character, CharacterTextures, TimedSprite, Player
-from constants import TRAIN_MUSIC_THRESHOLD
 
 
 class ComboManager:
@@ -17,10 +16,10 @@ class ComboManager:
         self.allowedP2Keys = ["left", "right", "up", "down", "page down", "page up"]
         self.comboObj = combos
         self.combos = {
-            # 'w': combos.fernet,
-            'qweasdqwe': combos.train,
+            'w': combos.beer,
+            'up': combos.beer,
             's': combos.indians,
-            'up': combos.indians,
+            'down': combos.indians,
             'a': combos.jarmilka,
             'left': combos.jarmilka
         }
@@ -115,9 +114,9 @@ class Combos:
         indians = TimedSprite(indianPos, 1000, "assets/indiani.png", lambda x: self.moveOnScreen(x, isPlayer1))
         constants.SPRITES.add(indians)
         if (isPlayer1):
-            self.player2.health -= 50
+            self.player2.dealDamage(50)
         else:
-            self.player1.health -= 50
+            self.player1.dealDamage(50)
 
     def jarmilka(self, isPlayer1):
         print("jarmilka")
@@ -127,11 +126,14 @@ class Combos:
         if isPlayer1:
             jarmilkaPos = pygame.Vector2(constants.WIDTH * 0.3, constants.HEIGHT * 0.35),
             curtainPos = constants.PLAYER1_POS
-            self.player1.health += 10
+            self.player1.increaseHealth(constants.BEER_HEAL*3)
         else:
             jarmilkaPos = pygame.Vector2(constants.WIDTH * 0.7, constants.HEIGHT * 0.35),
             curtainPos = constants.PLAYER2_POS
-            self.player2.health += 10
+            self.player2.increaseHealth(constants.BEER_HEAL*3)
+        curtain = TimedSprite(curtainPos, 700, "assets/zaclony.png",lambda x:self.aPass(), scale=0.5)
+        jarmilka = TimedSprite(jarmilkaPos, 1100, "assets/jarmilka.png",lambda x:self.aPass(), scale=0.3)
+        self.player2.health += 10
         curtain = TimedSprite(curtainPos, 700, "assets/zaclony.png", lambda x: self.aPass(), scale=0.5)
         jarmilka = TimedSprite(jarmilkaPos, 1100, "assets/jarmilka.png", lambda x: self.aPass(), scale=0.3)
         constants.SPRITES.add(jarmilka)
@@ -148,18 +150,25 @@ class Combos:
         # TODO animate bullet
 
     def snipe(self, isPlayer1):
+        player = self.player1 if isPlayer1 else self.player2
+        otherPlayer = self.player2 if isPlayer1 else self.player1
+        player.setTexture(player.textures.shoot)
+        otherPlayer.dealDamage(constants.BULLET_DMG)
+        #TODO animate bullet
+    def snipe(self,isPlayer1):
         print("sniping")
         player = self.player1 if isPlayer1 else self.player2
         otherPlayer = self.player2 if isPlayer1 else self.player1
-        player.setTimedTexture(player.textures.snipe,1000)
-        otherPlayer.health -= constants.BULLET_DMG
-        # TODO animate bullet
+        player.setTexture(player.textures.snipe)
+        otherPlayer.dealDamage(constants.BULLET_DMG)
+        #TODO animate bullet
 
     def beer(self, isPlayer1):
         print("beer")
         player = self.player1 if isPlayer1 else self.player2
-        player.setTimedTexture(player.textures.beer,1000)
-        player.health += constants.BEER_HEAL
+        player.setTimedTexture(player.textures.beer, 200)
+        player.increaseHealth(constants.BEER_HEAL)
+        print(player.health)
 
     def machineGun(self, isPlayer1):
         print("machine gun")
@@ -183,9 +192,9 @@ class Combos:
         indians = TimedSprite(indianPos, 1000, "assets/train.png", lambda x: self.moveOnScreen(x, isPlayer1))
         constants.SPRITES.add(indians)
         if (isPlayer1):
-            self.player2.health -= 50
+            self.player2.dealDamage(50)
         else:
-            self.player1.health -= 50
+            self.player1.dealDamage(50)
         pygame.mixer.stop()
         pygame.mixer.music.load(self.bgAudioPath)
         pygame.mixer.music.play()

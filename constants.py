@@ -1,5 +1,4 @@
 import pygame
-
 pygame.init()
 _info = pygame.display.Info()
 WIDTH, HEIGHT = _info.current_w, _info.current_h
@@ -11,10 +10,10 @@ BLUE = (0, 0, 255)
 PURPLE = (191, 0, 185)
 COMBO_TOLERANCY = 0.4
 
-MAX_HEALTH = 100
+MAX_HEALTH = 400
 BULLET_DMG = 5
 MACHINE_DMG = 15
-BEER_HEAL = 20
+BEER_HEAL = 10
 
 TRAIN_MUSIC_THRESHOLD = 4
 
@@ -32,3 +31,6 @@ secondBarStartX = WIDTH - 350
 barY = HEIGHT - 100
 barWidth = 300
 barHeight = 20
+
+def clamp(value, min, max):
+    return min if value < min else (max if value > max else (value))

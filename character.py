@@ -1,10 +1,14 @@
 import pygame as pg
+from constants import clamp
 
 class CharacterTextures:
     def __init__(self, default, attack_default = None, combo_fernet = None,shoot = None,machineGun = None,snipe = None,beer=None):
         self.deault = default
         self.attack_default = attack_default
-        self.combo_fernet = combo_fernet
+        self.shoot=shoot,
+        self.machineGun=machineGun,
+        self.snipe=snipe,
+        self.beer=beer
         
 
 class Character(pg.sprite.Sprite):
@@ -44,12 +48,13 @@ class Player(Character):
         self.health=100
         self.shortTermDMGScale = 1
 
-    def update(self):
-        pass
-
     def dealDamage(self, damage):
-        self.health -= damage*self.shortTermDMGScale
+        self.health = clamp(self.health - damage*self.shortTermDMGScale, 0, 400)
         self.shortTermDMGScale = 1
+        
+    def increaseHealth(self, amount):
+        self.health = clamp(self.health + amount, 0, 400)
+        
 class TimedSprite(pg.sprite.Sprite):
     def __init__(self, position, lifetime_ms, image,func, scale =1.0):
         super().__init__()
