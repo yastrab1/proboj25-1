@@ -85,6 +85,9 @@ while running:
         if event.type == pygame.KEYUP:
             pressedBeat = current_time
             print("Pressed Beat")
+    
+    all_sprites.draw(screen)
+    
     screen.blit(font.render("Points: " + str(points), True, WHITE), (WIDTH // 2, HEIGHT // 2))
     pygame.display.flip()
     clock.tick(60)
