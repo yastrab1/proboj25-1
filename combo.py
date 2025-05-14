@@ -16,17 +16,20 @@ class ComboManager:
         self.allowedP2Keys = ["left", "right", "up", "down", "page down", "page up"]
         self.comboObj = combos
         self.combos = {
-            'w': combos.beer,
-            'qweasdqwe':combos.train,
-            'up': combos.beer,
-            's': combos.indians,
-            'down': combos.indians,
-            # 'a': combos.jarmilka,
-            # 'left': combos.jarmilka,
-            # 'd': combos.shoot,
-            # 'right': combos.shoot,
-            'da':combos.machineGun,
-            'rightleft':combos.snipe,
+            'qwe': combos.beer,
+            'leftdownright': combos.beer,
+            'qe': combos.shoot,
+            'page uppage down': combos.shoot,
+            'qwedsa': combos.indians,
+            'page upuppage downrightdownup': combos.indians,
+            'asdd':combos.machineGun,
+            'leftdownrightright':combos.machineGun,
+            'aassddwwqe': combos.train,
+            'leftleftdowndownrightrightupuppage uppage down': combos.train,
+            'aaaaww': combos.jarmilka,
+            'leftleftleftleftupup': combos.jarmilka,
+            'eee': combos.callTrainManager,
+            'page downpage downpage down': combos.callTrainManager,
         }
 
     def registerEvent(self, keyCode: int, currentTime):
@@ -36,10 +39,14 @@ class ComboManager:
             if abs(beat - currentTime) < constants.COMBO_TOLERANCY / 2:
                 if pygame.key.name(keyCode) in self.allowedP1Keys:
                     self.keysP1.append(keyCode)
-                else:
+                elif pygame.key.name(keyCode) in self.allowedP2Keys:
                     self.keysP2.append(keyCode)
                 self.matchCombos()
                 return
+        if not foundComboP1:
+            self.breakCombo(True)
+        if not foundComboP2:
+            self.breakCombo(False)
             
 
     def getKeyString(self, isPlayer1):
@@ -194,8 +201,15 @@ class Combos:
         pygame.mixer.music.play()
 
     def callTrainManager(self,isPlayer1):
+        player = self.player1 if isPlayer1 else self.player2
+        player.setTimedTexture(player.textures.trainManager,1000)
+
         self.comboManager.breakCombo(not isPlayer1)
 
+    def barrel(self,isPlayer1):
+        print("barrel")
+        player = self.player1 if isPlayer1 else self.player2
+        player.addBarrel()
     # animations
     def moveOnScreen(self, sprite: TimedSprite, isPlayer1):
         sprite.rect = sprite.rect.move(20 if isPlayer1 else -20, 0)

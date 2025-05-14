@@ -47,7 +47,6 @@ pygame.mixer.music.load(path)
 
 start_time = -1
 
-
 def play_music():
     global start_time
     pygame.mixer.music.play()
@@ -67,6 +66,7 @@ playerTexturesBlue = ch.CharacterTextures(
     machineGun= "assets/machineGun/player1.png",
     snipe= "assets/snipe/player1.png",
     beer= "assets/beer/player1.png",
+    trainManager="assets/trainManager/player1.png"
 )
 playerTexturesRed = ch.CharacterTextures(
     default= "assets/player2.png",
@@ -75,6 +75,7 @@ playerTexturesRed = ch.CharacterTextures(
     machineGun= "assets/machineGun/player2.png",
     snipe= "assets/snipe/player2.png",
     beer= "assets/beer/player2.png",
+    trainManager="assets/trainManager/player2.png"
 )
 
 player1 = ch.Player(

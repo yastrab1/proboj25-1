@@ -22,6 +22,9 @@ SPRITES = pygame.sprite.Group()
 PLAYER1_POS = pygame.Vector2(WIDTH * 0.2, HEIGHT * 0.35)
 PLAYER2_POS = pygame.Vector2(WIDTH * 0.8, HEIGHT * 0.35)
 
+BARREL1Pos = pygame.Vector2(WIDTH * 0.2, HEIGHT * 0.35)
+BARREL2Pos = pygame.Vector2(WIDTH * 0.8, HEIGHT * 0.35)
+
 # Sound Effects
 
 indians = pygame.mixer.Sound("assets/sounds/indian_attack.mp3")  # Supported formats: WAV, OGG, MP3
