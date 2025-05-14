@@ -15,7 +15,6 @@ class ComboManager:
             'l': combos.indians(False),
             'a': combos.jarmilka(True)
         }
-
     def registerEvent(self, keyCode: int, currentTime):
         for beat in self.beatTimes:
             if abs(beat - currentTime) < constants.COMBO_TOLERANCY / 2:

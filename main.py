@@ -3,17 +3,20 @@ import time
 import threading
 
 from pygame import Vector2
-
+import tkinter as tk
 import character as ch
 import constants
-from beat import extractBeats
+from beat import extractBeats, downloadYTMusic
 from beatTracker import renderTracker
 from combo import ComboManager, Combos
 from healthbar import renderHealthBar
+from linkDialog import SimpleApp
 
-# --- Audio analysis (before starting pygame) ---
-AUDIO_PATH = './songs/Fernet Cez Internet [AlGVdv7uD98].mp3'
+# Usage
+app = SimpleApp()
+link = app.run()
 
+AUDIO_PATH = downloadYTMusic(link)
 beatTimes = extractBeats(AUDIO_PATH)
 
 pygame.init()
@@ -21,7 +24,7 @@ pygame.mixer.init()
 
 WIDTH, HEIGHT, SPRITES = constants.WIDTH, constants.HEIGHT, constants.SPRITES
 
-screen = screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN | pygame.SCALED)
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN | pygame.SCALED)
 
 bg = pygame.image.load("./assets/bg.png").convert()
 bg = pygame.transform.scale(bg, (WIDTH, HEIGHT))
@@ -72,7 +75,6 @@ player2 = ch.Player(
 SPRITES.add(player1)
 SPRITES.add(player2)
 
-# Main loop
 running = True
 
 combo = ComboManager(beatTimes,Combos(player1,player2))
@@ -84,7 +86,6 @@ def mainGame():
     renderHealthBar(screen, player1.health, player2.health)
     SPRITES.update()
     renderTracker(screen, beatTimes, current_time)
-    SPRITES.update()
     # Event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -95,13 +96,7 @@ def mainGame():
     screen.blit(font.render("combo: " + str(combo), True, constants.WHITE), (WIDTH // 2, HEIGHT // 2))
     return True
 
-def menu():
-    screen.blit(bg, (0, 0))
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            return False
-        if event.type == pygame.MOUSEBUTTONUP:
-            pass
+
 
 while running:
     running = mainGame()
