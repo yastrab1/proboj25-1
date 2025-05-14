@@ -3,6 +3,9 @@ import librosa
 import numpy as np
 import time
 import threading
+import character as ch
+import constants
+from beat import extractBeats
 
 # --- Audio analysis (before starting pygame) ---
 AUDIO_PATH = './songs/Fernet Cez Internet [AlGVdv7uD98].mp3'
@@ -54,7 +57,7 @@ def renderTracker(lastPressedBeat):
         dt = beat - current_time
         if 0 <= dt < 2:
             x = int(BEAT_LINE_X + (dt - 1) * 300)  # dt=1 => start edge, dt=0 => beat line
-            pygame.draw.circle(screen, RED, (x, HEIGHT // 2), 10)
+            pygame.draw.circle(screen, constants.RED, (x, HEIGHT // 2), 10)
         if -0.2 < lastPressedBeat - beat < 0.2:
             return True
 
@@ -62,11 +65,11 @@ def renderTracker(lastPressedBeat):
 
 
 while running:
-    screen.fill(BLACK)
+    screen.fill(constants.BLACK)
     current_time = time.time() - start_time if start_time else 0
 
     # Draw beat line
-    pygame.draw.line(screen, WHITE, (BEAT_LINE_X, 0), (BEAT_LINE_X, HEIGHT), 2)
+    pygame.draw.line(screen, constants.WHITE, (BEAT_LINE_X, 0), (BEAT_LINE_X, HEIGHT), 2)
 
     # Draw upcoming beats as dots moving toward the beat line
     addPoints = renderTracker(pressedBeat)
@@ -85,7 +88,7 @@ while running:
 
     all_sprites.draw(screen)
 
-    screen.blit(font.render("Points: " + str(points), True, WHITE), (WIDTH // 2, HEIGHT // 2))
+    screen.blit(font.render("Points: " + str(points), True, constants.WHITE), (WIDTH // 2, HEIGHT // 2))
     pygame.display.flip()
     clock.tick(60)
 
