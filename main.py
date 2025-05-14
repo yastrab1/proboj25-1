@@ -11,6 +11,7 @@ from beat import extractBeats, downloadYTMusic
 from beatTracker import renderTracker
 from character import TimedSprite
 from combo import ComboManager, Combos
+from constants import AUDIO_PATH
 from healthbar import renderHealthBar
 from linkDialog import SimpleApp
 
@@ -24,7 +25,7 @@ if os_name == "Windows":
     path = app.run()
 elif os_name == "Darwin":
     path = "./songs/Fernet Cez Internet [AlGVdv7uD98].mp3"
-
+constants.AUDIO_PATH = path
 beatTimes,bpm = extractBeats(path)
 
 pygame.init()

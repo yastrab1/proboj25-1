@@ -58,10 +58,14 @@ class Player(Character):
         self.first = first
 
     def addBarrel(self):
+        if self.barrel:
+            return
         self.barrelObj = Barrel(self.first)
         self.barrelObj.add(constants.SPRITES)
+        self.barrel = True
     def removeBarrel(self):
         self.barrelObj.kill()
+        self.barrel = False
 
     def dealDamage(self, damage):
         if self.barrel:
