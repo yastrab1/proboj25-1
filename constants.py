@@ -17,3 +17,4 @@ SPRITES = pygame.sprite.Group()
 #Sound Effects
 
 indians = pygame.mixer.Sound("assets/sounds/indian_attack.mp3")  # Supported formats: WAV, OGG, MP3
+jarmilka_moan = pygame.mixer.Sound("assets/sounds/jarmilka.mp3")

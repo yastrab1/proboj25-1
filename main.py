@@ -57,14 +57,14 @@ playerTexturesRed = ch.CharacterTextures(
 
 player1 = ch.Player(
     textures=playerTexturesBlue,
-    position=Vector2(0, 0),
+    position=Vector2(WIDTH*0.2, HEIGHT*0.35),
     scale=0.4,
     first=True
 )
 
 player2 = ch.Player(
     textures=playerTexturesRed,
-    position=Vector2(WIDTH-500, 0),
+    position=Vector2(WIDTH*0.8, HEIGHT*0.35),
     scale=0.4,
     first=False
 )

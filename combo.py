@@ -12,7 +12,8 @@ class ComboManager:
         self.combos = {
             'f': combos.fernet(True),
             'b': combos.indians(True),
-            'l': combos.indians(False)
+            'l': combos.indians(False),
+            'a': combos.jarmilka(True)
         }
 
     def registerEvent(self, keyCode: int, currentTime):
@@ -65,5 +66,17 @@ class Combos:
                 self.player1.health -= 50
         return internal
 
+    def jarmilka(self, isPlayer1):
+        def internal():
+            print("jarmilka")
+            constants.jarmilka_moan.play()
+            if isPlayer1:
+                
+                self.player1.health += 10
+            else:
+                self.player2.health += 10
+        return internal
+        
+    
     def animateIndians(self,sprite:TimedSprite,isPlayer1):
         sprite.rect = sprite.rect.move(20 if isPlayer1 else -20,0)
