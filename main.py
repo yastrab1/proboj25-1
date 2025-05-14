@@ -46,7 +46,12 @@ playerTextures = ch.CharacterTextures(
     default="assets/img.png"
 )
 
-player = ch.Character(playerTextures, (0, 0))
+player = ch.Character(
+    textures=playerTextures,
+    position=(0, 0),
+    scale=0.4
+)
+
 all_sprites.add(player)
 
 
