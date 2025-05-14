@@ -30,14 +30,16 @@ class Player(Character):
         pass
         
 class TimedSprite(pg.sprite.Sprite):
-    def __init__(self, position, lifetime_ms, image, scale =1.0):
+    def __init__(self, position, lifetime_ms, image,func, scale =1.0):
         super().__init__()
         self.image = pg.transform.scale_by(pg.image.load(image).convert_alpha(), scale)
         self.rect = self.image.get_rect(center=position)
         self.spawn_time = pg.time.get_ticks()
         self.lifetime = lifetime_ms
+        self.func = func
 
     def update(self):
         current_time = pg.time.get_ticks()
+        self.func(self)
         if current_time - self.spawn_time >= self.lifetime:
             self.kill()  # Remove the sprite from all groups
