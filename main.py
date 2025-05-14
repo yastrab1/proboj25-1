@@ -1,10 +1,8 @@
 import pygame
+import librosa
+import numpy as np
 import time
 import threading
-
-import constants
-from beat import extractBeats
-from constants import BLACK, WHITE, RED
 
 # --- Audio analysis (before starting pygame) ---
 AUDIO_PATH = './songs/Fernet Cez Internet [AlGVdv7uD98].mp3'
@@ -37,6 +35,16 @@ threading.Thread(target=play_music).start()
 points = 0
 pressedBeat = -100
 
+
+
+all_sprites = pygame.sprite.Group()
+
+player = ch.Character("assets/player_image.png", (0, 0))
+all_sprites.add(player)
+
+
+
+# Main loop
 running = True
 
 
@@ -67,12 +75,16 @@ while running:
         pressedBeat = -100
     if pressedBeat - current_time > 0.4:
         pressedBeat = -100
+    # Event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYUP:
             pressedBeat = current_time
             print("Pressed Beat")
+
+    all_sprites.draw(screen)
+
     screen.blit(font.render("Points: " + str(points), True, WHITE), (WIDTH // 2, HEIGHT // 2))
     pygame.display.flip()
     clock.tick(60)
