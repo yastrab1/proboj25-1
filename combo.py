@@ -16,7 +16,8 @@ class ComboManager:
             'w': combos.fernet,
             's': combos.indians,
             'up': combos.indians,
-            'a': combos.jarmilka
+            'a': combos.jarmilka,
+            'left': combos.jarmilka
         }
     def registerEvent(self, keyCode: int, currentTime):
         for beat in self.beatTimes:
@@ -66,10 +67,8 @@ class Combos:
     def indians(self,isPlayer1):
         print("indiani")
         constants.indians.play()
-        prechod = pygame.sprite.Sprite()
         indianPos = (0 if isPlayer1 else constants.WIDTH, 500)
         indians = TimedSprite(indianPos, 1000, "assets/indiani.png",lambda x:self.animateIndians(x,isPlayer1))
-        indiansSpawnTime = pygame.time.get_ticks()
         constants.SPRITES.add(indians)
         if (isPlayer1):
             self.player2.health -= 50
@@ -80,12 +79,21 @@ class Combos:
     def jarmilka(self, isPlayer1):
         print("jarmilka")
         constants.jarmilka_moan.play()
+        jarmilkaPos = ()
         if isPlayer1:
-
+            jarmilkaPos = pygame.Vector2(constants.WIDTH*0.3, constants.HEIGHT*0.35),
             self.player1.health += 10
         else:
+            jarmilkaPos = pygame.Vector2(constants.WIDTH*0.7, constants.HEIGHT*0.35),
             self.player2.health += 10
+        jarmilka = TimedSprite(jarmilkaPos, 1000, "assets/jarmilka.png",lambda x:self.aPass(), scale=0.3)
+        constants.SPRITES.add(jarmilka)
         
+    
+    #animations
     
     def animateIndians(self,sprite:TimedSprite,isPlayer1):
         sprite.rect = sprite.rect.move(20 if isPlayer1 else -20,0)
+        
+    def aPass(self):
+        pass
