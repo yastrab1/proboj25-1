@@ -10,7 +10,7 @@ class ComboManager:
         self.beatTimes = beatTimes
         self.combos = {
             'f': combos.fernet,
-            'b': combos.normal,
+            'b': combos.indians,
         }
 
     def registerEvent(self, keyCode: int, currentTime):
