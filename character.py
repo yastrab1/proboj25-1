@@ -4,8 +4,10 @@ class CharacterTextures:
     def __init__(self, default, attack_default = None, combo_fernet = None,shoot = None,machineGun = None,snipe = None,beer=None):
         self.deault = default
         self.attack_default = attack_default
-        self.combo_fernet = combo_fernet
-        self.pije_pivo = pije_pivo
+        self.shoot=shoot,
+        self.machineGun=machineGun,
+        self.snipe=snipe,
+        self.beer=beer
         
 
 class Character(pg.sprite.Sprite):
