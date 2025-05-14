@@ -60,28 +60,24 @@ class Combos:
 
 
     def indians(self,isPlayer1):
-        def internal():
-            print("indiani")
-            constants.indians.play()
-            indianPos = (0 if isPlayer1 else constants.WIDTH, 500)
-            indians = TimedSprite(indianPos, 1000, "assets/indiani.png",lambda x:self.animateIndians(x,isPlayer1))
-            constants.SPRITES.add(indians)
-            if (isPlayer1):
-                self.player2.health -= 50
-            else:
-                self.player1.health -= 50
-        return internal
+        print("indiani")
+        constants.indians.play()
+        indianPos = (0 if isPlayer1 else constants.WIDTH, 500)
+        indians = TimedSprite(indianPos, 1000, "assets/indiani.png",lambda x:self.animateIndians(x,isPlayer1))
+        constants.SPRITES.add(indians)
+        if (isPlayer1):
+            self.player2.health -= 50
+        else:
+            self.player1.health -= 50
 
     def jarmilka(self, isPlayer1):
-        def internal():
-            print("jarmilka")
-            constants.jarmilka_moan.play()
-            if isPlayer1:
-                
-                self.player1.health += 10
-            else:
-                self.player2.health += 10
-        return internal
+        print("jarmilka")
+        constants.jarmilka_moan.play()
+        if isPlayer1:
+            
+            self.player1.health += 10
+        else:
+            self.player2.health += 10
         
     
     def animateIndians(self,sprite:TimedSprite,isPlayer1):
