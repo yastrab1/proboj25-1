@@ -20,6 +20,11 @@ class Character(pg.sprite.Sprite):
         
     def resetTexture(self):
         self.image = pg.transform.scale_by(pg.image.load(self.textures.deault).convert_alpha(), self.scale)
+
+class Player(Character):
+    def __init__(self, textures : CharacterTextures,position:pg.Vector2,scale = 1.0,first:bool = True):
+        super().__init__(textures,position,scale)
+        self.health=100
         
     def update(self):
         pass
