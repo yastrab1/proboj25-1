@@ -6,6 +6,7 @@ import threading
 import character as ch
 import constants
 from beat import extractBeats
+from combo import ComboManager
 
 # --- Audio analysis (before starting pygame) ---
 AUDIO_PATH = './songs/Fernet Cez Internet [AlGVdv7uD98].mp3'
@@ -52,17 +53,13 @@ running = True
 
 
 def renderTracker(lastPressedBeat):
-
     for beat in beatTimes:
         dt = beat - current_time
         if 0 <= dt < 2:
             x = int(BEAT_LINE_X + (dt - 1) * 300)  # dt=1 => start edge, dt=0 => beat line
             pygame.draw.circle(screen, constants.RED, (x, HEIGHT // 2), 10)
-        if -0.2 < lastPressedBeat - beat < 0.2:
-            return True
 
-    return False
-
+combo = ComboManager(beatTimes)
 
 while running:
     screen.fill(constants.BLACK)
@@ -72,23 +69,17 @@ while running:
     pygame.draw.line(screen, constants.WHITE, (BEAT_LINE_X, 0), (BEAT_LINE_X, HEIGHT), 2)
 
     # Draw upcoming beats as dots moving toward the beat line
-    addPoints = renderTracker(pressedBeat)
-    if addPoints:
-        points+=1
-        pressedBeat = -100
-    if pressedBeat - current_time > 0.4:
-        pressedBeat = -100
+    renderTracker(pressedBeat)
     # Event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYUP:
-            pressedBeat = current_time
-            print("Pressed Beat")
+            combo.registerEvent(event.key,current_time)
 
     all_sprites.draw(screen)
 
-    screen.blit(font.render("Points: " + str(points), True, constants.WHITE), (WIDTH // 2, HEIGHT // 2))
+    screen.blit(font.render("combo: " + str(combo), True, constants.WHITE), (WIDTH // 2, HEIGHT // 2))
     pygame.display.flip()
     clock.tick(60)
 
