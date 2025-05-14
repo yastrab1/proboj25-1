@@ -66,7 +66,7 @@ player2 = ch.Character(
     scale=0.4
 )
 
-all_sprites.add(player1)
+SPRITES.add(player1)
 SPRITES.add(player2)
 
 # Main loop
