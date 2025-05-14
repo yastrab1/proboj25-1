@@ -1,6 +1,9 @@
 import pygame
 import time
 import threading
+
+from pygame import Vector2
+
 import character as ch
 import constants
 from beat import extractBeats
@@ -16,6 +19,8 @@ pygame.init()
 WIDTH, HEIGHT = constants.WIDTH, constants.HEIGHT
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+bg = pygame.image.load("./assets/bg.png").convert()
+bg = pygame.transform.scale(bg, (WIDTH, HEIGHT))
 pygame.display.set_caption("Beat Visualizer")
 clock = pygame.time.Clock()
 
@@ -40,13 +45,13 @@ pressedBeat = -100
 all_sprites = pygame.sprite.Group()
 
 playerTextures = ch.CharacterTextures(
-    default="assets/img.png",
+    default="assets/player.png",
     combo_fernet="assets/fernet.png"
 )
 
 player = ch.Character(
     textures=playerTextures,
-    position=(0, 0),
+    position=Vector2(0, 0),
     scale=0.4
 )
 
@@ -58,7 +63,7 @@ running = True
 combo = ComboManager(beatTimes,Combos(player))
 
 while running:
-    screen.fill(constants.BLACK)
+    screen.blit(bg, (0, 0))
     current_time = time.time() - start_time if start_time else 0
 
     renderTracker(screen,beatTimes,current_time)

@@ -5,11 +5,12 @@ from character import Character
 
 
 class ComboManager:
-    def __init__(self, beatTimes,combos):
+    def __init__(self, beatTimes, combos):
         self.keys = []
         self.beatTimes = beatTimes
         self.combos = {
-            'f': combos.fernet
+            'f': combos.fernet,
+            'b': combos.normal,
         }
 
     def registerEvent(self, keyCode: int, currentTime):
@@ -33,11 +34,14 @@ class ComboManager:
     def __str__(self):
         return str(list(map(pygame.key.name, self.keys)))
 
+
 class Combos:
-    def __init__(self,character:Character):
+    def __init__(self, character: Character):
         self.character = character
 
     def fernet(self):
         print("fernet")
         self.character.setTexture(self.character.textures.combo_fernet)
 
+    def normal(self):
+        self.character.setTexture(self.character.textures.deault)
