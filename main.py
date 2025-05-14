@@ -76,24 +76,34 @@ running = True
 
 combo = ComboManager(beatTimes,Combos(player1,player2))
 
-while running:
+
+def mainGame():
     screen.blit(bg, (0, 0))
     current_time = time.time() - start_time if start_time else 0
-
-    renderHealthBar(screen,100,50)
+    renderHealthBar(screen, player1.health, player2.health)
     SPRITES.update()
-    renderTracker(screen,beatTimes,current_time)
+    renderTracker(screen, beatTimes, current_time)
     SPRITES.update()
     # Event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            return False
         if event.type == pygame.KEYUP:
             combo.registerEvent(event.key, current_time)
-
     SPRITES.draw(screen)
-
     screen.blit(font.render("combo: " + str(combo), True, constants.WHITE), (WIDTH // 2, HEIGHT // 2))
+    return True
+
+def menu():
+    screen.blit(bg, (0, 0))
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return False
+        if event.type == pygame.MOUSEBUTTONUP:
+            pass
+
+while running:
+    running = mainGame()
     pygame.display.flip()
     clock.tick(60)
 
